@@ -1,0 +1,8 @@
+interface:
+  display_name: "BTCC Style Generator"
+  short_description: "Generate compact BTCC-style crypto exchange interfaces."
+  brand_color: "#0C73ED"
+  default_prompt: "Use $btcc-style-generator to create a BTCC-style contract trading page."
+
+policy:
+  allow_implicit_invocation: true
