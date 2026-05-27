@@ -2,9 +2,11 @@
 
 Use this file when choosing structure for a requested BTCC page.
 
+> **Source-verification note.** Only `合约pro` (and `设计规范` for tokens) is currently verified in the Figma file root via `get_metadata`. Sections below for `home`, `markets`, `wallet`, `auth`, `copy-trading`, `spot`, `c2c`, `h5`, and modal/sheet patterns are general BTCC anatomy guidance — they do NOT have a confirmed source page in the current pass. Treat them as conventions consistent with the verified `合约pro` style; if han points at a specific Figma node for one of these surfaces, re-verify via `get_design_context` before relying on the rules below.
+
 ## Contract Pro
 
-Source page: `合约pro`
+Source page: `合约pro` (verified, node `1262:304`; main mobile frame `合约pro-dark` `3112:1423`).
 
 First viewport must include:
 
@@ -24,11 +26,11 @@ Do not:
 
 - Make a marketing hero.
 - Hide order form below the fold.
-- Use blue for long/short direction.
+- Color the `Open Long` button green; in BTCC `合约pro` the long button is brand blue and the short button is red.
 
 ## Exchange Home
 
-Source page alias: `home`
+Source page alias: `home` *(not verified in current Figma metadata pass; treat as BTCC-style convention only)*
 
 First viewport should include:
 
@@ -44,7 +46,7 @@ Do not:
 
 ## Markets
 
-Source page alias: `markets`
+Source page alias: `markets` *(not verified in current Figma metadata pass; convention only)*
 
 Must include:
 
@@ -60,7 +62,7 @@ Do not:
 
 ## Wallet / Assets
 
-Source page aliases: `assets`, `profile-settings`
+Source page aliases: `assets`, `profile-settings` *(not verified in current Figma metadata pass; convention only)*
 
 Must include:
 
@@ -77,7 +79,7 @@ Do not:
 
 ## Auth
 
-Source page alias: `auth`
+Source page alias: `auth` *(not verified in current Figma metadata pass; convention only)*
 
 Must include:
 
@@ -94,7 +96,7 @@ Do not:
 
 ## Copy Trading
 
-Source page alias: `copy-trading`
+Source page alias: `copy-trading` *(not verified in current Figma metadata pass; convention only)*
 
 Must include:
 
@@ -111,7 +113,7 @@ Do not:
 
 ## Spot
 
-Source page alias: `spot`
+Source page alias: `spot` *(not verified in current Figma metadata pass; convention only)*
 
 Must include:
 
@@ -127,7 +129,7 @@ Do not:
 
 ## C2C
 
-Source page alias: `c2c`
+Source page alias: `c2c` *(not verified in current Figma metadata pass; convention only)*
 
 Must include:
 
@@ -142,7 +144,7 @@ Do not:
 
 ## H5 / Mobile Web
 
-Source page alias: `h5`
+Source page alias: `h5` *(not verified in current Figma metadata pass; convention only)*
 
 Must include:
 

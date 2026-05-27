@@ -8,14 +8,15 @@ It is intended for generating BTCC-style crypto exchange web pages, especially t
 
 - Figma file: `新BTCC APP`
 - Figma file key: `GW9kMfpf0Nib5DG4TjoWBp`
-- Primary token source page: `设计规范`
-- Global component source page: `全局组件`
-- Main contract trading reference page: `合约pro`
-- Known component sets:
+- Verified pages (current `get_metadata` pass):
+  - `设计规范` — primary token source (`0:1`)
+  - `合约pro` — main contract trading reference (`1262:304`)
+- Component instance names referenced in earlier docs (treated as anatomy hints, not as guaranteed component-set pages):
   - `次级button`
   - `TabBar 底部标签栏`
+- Other page aliases (`全局组件`, `图标`, `首页`, `资产`, `行情`, `现货`, `跟单`, `登录注册`, `C2C`, `h5`, etc.) appear in older notes but were NOT returned by the current Figma metadata pass. See `skills/btcc-style-generator/references/figma-source.md` for the verified-vs-unverified split.
 
-When the Figma plugin is available, inspect the source file before inventing tokens, icons, components, or layout rules.
+When the Figma plugin is available, inspect the source file before inventing tokens, icons, components, or layout rules. Do not assume an unverified page alias maps to a real Figma page in the current file.
 
 ## What Is Included
 
@@ -37,6 +38,7 @@ skills/
       icons/*.svg
     references/
       components.md
+      contract-screens.md
       data-format.md
       figma-source.md
       golden-examples.md
@@ -88,9 +90,9 @@ skills/
 - Treat BTCC as an operational exchange UI, not a marketing landing page.
 - Put market, account, product, or trading state in the first viewport.
 - Use original BTCC semantic tokens instead of arbitrary colors.
-- Use brand blue for neutral primary actions and selected states.
-- Use green for buy, long, bid, positive, profit, and success states.
-- Use red for sell, short, ask, negative, loss, and error states.
+- Use brand blue for neutral primary actions, selected states, AND the `Open Long` direction button.
+- Use red for the `Open Short` direction button and for sell, short, ask, negative, loss, error states.
+- Use green for positive numeric direction (bid rows, positive change, profit text, success toasts) — NOT for the long action button. BTCC `合约pro` reverses the common "long=green" convention on the action button.
 - Keep trading/workspace screens compact, dense, and data-led.
 - Use thin dividers, tabular numbers, aligned numeric columns, and restrained borders.
 - Use tabs for major operational states and segmented controls for mode switches.
@@ -112,6 +114,7 @@ Key semantic values:
 | Text/icon primary | `#F1F3F5` | `#13161C` |
 | Text/icon secondary | `#878F99` | `#717C95` |
 | Brand | `#0C73ED` | `#195EFF` |
+| Secondary accent | `#84DC1F` | `#84DC1F` |
 | Success | `#2CA85D` | `#2CA85D` |
 | Error | `#EB464F` | `#EB464F` |
 | Warning | `#E0601F` | `#E0601F` |
@@ -154,13 +157,14 @@ Use `references/icons.md` for role mapping, sizes, and fallback names.
 When the Figma plugin is available:
 
 1. Open or target the Figma file `GW9kMfpf0Nib5DG4TjoWBp`.
-2. Inspect `设计规范` for variables, colors, and source icons.
-3. Inspect `全局组件` for component sets such as `次级button`.
-4. Inspect the target page, especially `合约pro` for trading layouts.
-5. Reuse existing Figma variables/components when creating or updating Figma nodes.
-6. Only create new tokens/components when the original source does not cover the need.
+2. Run `get_metadata` (no nodeId) to confirm which pages currently exist before assuming any alias maps to a real page.
+3. Inspect `设计规范` (`0:1`) for variables, colors, and source icons.
+4. Inspect `合约pro` (`1262:304`), especially `合约pro-dark` (`3112:1423`), for verified trading layouts and direction-button colors.
+5. For tokens, prefer `search_design_system` over a full-page metadata dump (the `设计规范` page is too large to inline).
+6. Reuse existing Figma variables/instances when creating or updating Figma nodes.
+7. Only create new tokens/components when the verified source does not cover the need.
 
-Do not rely on memory alone for Figma-specific values when the plugin can inspect the file.
+Do not rely on memory alone for Figma-specific values when the plugin can inspect the file. Do not generate UI on the basis of an unverified page alias.
 
 ## Recommended Generation Workflow
 
@@ -212,7 +216,7 @@ The most important failures to catch are:
 
 - turning an operational screen into a marketing hero page
 - missing order book or order form on trading pages
-- using brand blue for long/short actions
+- coloring the `Open Long` button green (BTCC source paints it brand blue)
 - using arbitrary colors instead of BTCC tokens
 - losing tabular numeric alignment
 - replacing BTCC utility icons with decorative icons
@@ -239,7 +243,7 @@ The linter checks common generation drift:
 - missing tabular number styling
 - icon-only buttons without `aria-label` or `title`
 - contract pages missing `Order Book`, `Open Long`, or `Open Short`
-- long/short actions without success/error styling cues
+- `Open Long` not styled with `fill/Brand` (blue) or `Open Short` not styled with `fill/Error` (red)
 - marketing hero language mixed into trading pages
 
 The linter is heuristic. Use it together with visual review and Figma inspection.
@@ -269,6 +273,7 @@ skills/btcc-style-generator/SKILL.md
 | `docs/btcc/btcc-prompt-pack.md` | Prompt templates for BTCC-style generation |
 | `skills/btcc-style-generator/SKILL.md` | Codex skill router and usage rules |
 | `references/figma-source.md` | Figma pages, components, source anchors |
+| `references/contract-screens.md` | 合约pro sub-screen index (node IDs by purpose) |
 | `references/tokens.md` | Original token names and mappings |
 | `references/components.md` | Trading forms, buttons, tabs, tables, modals |
 | `references/icons.md` | Icon roles, sizes, Figma cues, local SVGs |

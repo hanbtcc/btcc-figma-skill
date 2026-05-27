@@ -85,13 +85,16 @@ Freeze these component tokens:
 | `--btcc-button-primary-bg` | `--btcc-brand` |
 | `--btcc-button-primary-bg-pressed` | `--btcc-brand-pressed` |
 | `--btcc-button-primary-text` | `--btcc-text-on-base-button` or explicit mode token |
-| `--btcc-button-long-bg` | `--btcc-success` |
-| `--btcc-button-long-bg-pressed` | `--btcc-success-pressed` |
+| `--btcc-button-long-bg` | `--btcc-brand` |
+| `--btcc-button-long-bg-pressed` | `--btcc-brand-pressed` |
 | `--btcc-button-short-bg` | `--btcc-error` |
 | `--btcc-button-short-bg-pressed` | `--btcc-error-pressed` |
 | `--btcc-button-disabled-bg` | `fill/Brand Button/Disable` |
 
-Generation rule: directional trading actions must not use brand blue.
+Generation rules:
+
+- The `Open Long` action button in `合约pro` uses `fill/Brand` (brand blue), not `fill/Success`. Long is brand blue; short is red. This is the BTCC source convention and reverses the common "long=green" expectation.
+- `fill/Success` and `fill/Green Button Pressed` still exist and are used for positive numeric/state cues (success toasts, profit highlights, bid-row coloring), just not for the long action button.
 
 ### Inputs
 

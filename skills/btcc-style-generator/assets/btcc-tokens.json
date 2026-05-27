@@ -4,6 +4,48 @@
     "fileKey": "GW9kMfpf0Nib5DG4TjoWBp",
     "extractedAt": "2026-05-27"
   },
+  "size": {
+    "radius": {
+      "tag": 4,
+      "control": 6,
+      "card": 12,
+      "pill": 100
+    },
+    "control": {
+      "sm": 28,
+      "button": 38,
+      "input": 42,
+      "rowSm": 22,
+      "row": 24,
+      "nav": 44,
+      "tabbar": 78
+    },
+    "space": {
+      "1": 4,
+      "2": 8,
+      "3": 12,
+      "4": 16,
+      "6": 24
+    },
+    "note": "Values observed from 合约pro-dark (3112:1423) sub-frames; the source file does not expose these as named Figma variables."
+  },
+  "typography": {
+    "fontFamily": "Helvetica Neue, PingFang SC, Helvetica, system-ui, -apple-system, sans-serif",
+    "weight": {
+      "regular": 400,
+      "medium": 500
+    },
+    "fontSize": {
+      "xs": 10,
+      "sm": 12,
+      "md": 14
+    },
+    "lineHeight": {
+      "tight": 18,
+      "base": 20
+    },
+    "note": "Helvetica Neue Regular/Medium observed in 合约pro-dark order form, tag, and direction button. Source file uses these as raw text styles, not named typography variables."
+  },
   "semantic": {
     "dark": {
       "bgPrimary": "#0C0F12",
@@ -35,6 +77,7 @@
       "brand": "#0C73ED",
       "brandPressed": "#0B6ADB",
       "brandAlert": "#0C73ED 20%",
+      "secondaryAccent": "#84DC1F",
       "success": "#2CA85D",
       "successPressed": "#1B8248",
       "successAlert": "#2CA85D 20%",
@@ -81,6 +124,7 @@
       "brand": "#195EFF",
       "brandPressed": "#1858F0",
       "brandAlert": "#195EFF 20%",
+      "secondaryAccent": "#84DC1F",
       "success": "#2CA85D",
       "successPressed": "#299C56",
       "successAlert": "#2CA85D 20%",

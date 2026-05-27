@@ -11,14 +11,16 @@ Prompt:
 Expected checks:
 
 - Contains pair selector, price/stats, chart, order book, order form, and bottom order/position tabs.
-- `Open Long` is green and `Open Short` is red.
+- `Open Long` is brand blue (`--btcc-brand`) and `Open Short` is error red (`--btcc-error`). Long is NOT green — BTCC `合约pro` reverses the common western convention on the action button.
+- Bid rows, positive percent change, and profit numbers still use green; ask rows and negative numbers still use red.
 - Uses tabular numbers and realistic values such as `96,199.92`, `+2.31%`, `0.0000 USDT`.
 - Uses BTCC tokens or `--btcc-*` variables.
 
 Fail if:
 
 - The first viewport is a marketing page.
-- Brand blue is used for long/short actions.
+- `Open Long` is colored green (this is the most common drift caused by external "long=green" muscle memory).
+- `Open Short` is colored anything other than red.
 - Order book or order form is missing.
 
 ## Eval 2: Mobile Contract Trading Page
@@ -66,7 +68,7 @@ Prompt:
 Expected checks:
 
 - Table rows include pair, price, 24h change, and optional compact sparkline.
-- Numeric values align and use green/red semantics.
+- Numeric values align and use green/red semantics (positive=green, negative=red — note this applies to numeric cells, while direction action buttons elsewhere follow BTCC's blue-long / red-short rule).
 - Filters and tabs are compact and operational.
 
 Fail if:

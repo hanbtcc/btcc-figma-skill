@@ -25,6 +25,7 @@ ALLOWED_HEX = {
     "#E0601F",
     "#F0B848",
     "#8994A3",
+    "#84DC1F",
 }
 
 TEXT_EXTENSIONS = {
@@ -119,9 +120,9 @@ def lint_file(path: Path) -> list[Finding]:
             short_match = re.search(r"<(?:button|Button)[^>]*>[^<]*open short", lowered)
             long_context = long_match.group(0) if long_match else lowered
             short_context = short_match.group(0) if short_match else lowered
-            if not re.search(r"(success|green|--btcc-[\w-]*success|--btcc-[\w-]*long)", long_context):
-                findings.append(Finding(path, 1, "BTCC007", "Open Long needs success/green semantic styling"))
-            if not re.search(r"(error|red|--btcc-[\w-]*error|--btcc-[\w-]*short)", short_context):
+            if not re.search(r"(brand|--btcc-brand|--btcc-button-brand|fill/brand|#0c73ed|#195eff)", long_context):
+                findings.append(Finding(path, 1, "BTCC007", "Open Long uses fill/Brand (brand blue) in 合约pro; do not switch it to success/green"))
+            if not re.search(r"(error|red|--btcc-[\w-]*error|--btcc-[\w-]*short|fill/error|#eb464f)", short_context):
                 findings.append(Finding(path, 1, "BTCC008", "Open Short needs error/red semantic styling"))
 
     marketing_terms = ("hero", "inspirational", "beautiful gradient", "floating card")
@@ -167,7 +168,7 @@ export function Good() {
     <section>
       <h1>BTCUSDT Perp</h1>
       <p>Order Book</p>
-      <button className="bg-[var(--btcc-fill-success)]">Open Long</button>
+      <button className="bg-[var(--btcc-brand)]">Open Long</button>
       <button className="bg-[var(--btcc-fill-error)]">Open Short</button>
       <p>Positions(0)</p>
     </section>

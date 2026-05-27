@@ -2,7 +2,7 @@
 
 ## Source And Scope
 
-This document freezes the reusable BTCC app design rules extracted from the Figma file `新BTCC APP` on 2026-05-27.
+This document captures the reusable BTCC app design rules extracted from the Figma file `新BTCC APP` (file key `GW9kMfpf0Nib5DG4TjoWBp`). Tokens and the `合约pro` patterns were last verified via the Figma MCP on 2026-05-27.
 
 Use it for BTCC-style web pages, mobile-inspired responsive pages, trading terminals, account pages, wallet pages, login/register flows, and future Codex skills. The source design is app-first, especially the `合约pro` page, so web output should adapt the same density, token logic, and component grammar rather than copying mobile dimensions literally.
 
@@ -14,29 +14,20 @@ Do not turn BTCC pages into marketing landing pages unless the user explicitly a
 
 ## Figma Structure
 
-The source file contains these relevant pages:
+The current `get_metadata` pass against the file root only returned two top-level pages:
 
-| Page | Purpose |
-| --- | --- |
-| `设计规范` | Primary token and color specification page. |
-| `全局组件` | Global component holding area. |
-| `图标` | Icon inventory page. |
-| `换色` | Theme/color-change exploration. |
-| `首页` | Home patterns. |
-| `资产` | Assets and wallet patterns. |
-| `行情` | Market patterns. |
-| `老合约` | Legacy contract patterns. |
-| `TradFi` | TradFi feature patterns. |
-| `合约pro` | Main contract trading reference. |
-| `现货` | Spot trading patterns. |
-| `跟单` | Copy trading patterns. |
-| `登录注册` | Auth patterns. |
-| `我的、设置` | Profile and settings patterns. |
-| `卡券/体验金` | Coupons and trial-fund patterns. |
-| `支付通道、NFT、提现` | Payments, NFT, withdrawal patterns. |
-| `C2C` | C2C patterns. |
-| `观点` | Content/opinion patterns. |
-| `h5` | Mobile web patterns. |
+| Page | Node ID | Purpose |
+| --- | --- | --- |
+| `设计规范` | `0:1` | Primary token and color specification page (verified). |
+| `合约pro` | `1262:304` | Main contract trading reference, contains 200+ sub-frames including limit/market entry, close-position flows, TP/SL sheets, full-screen orders, etc. (verified). |
+
+Earlier internal notes referenced the following pages, but they were NOT returned as top-level pages in the current verification pass. They may have been moved, renamed, archived, or live in a separate file. Do not generate output on the assumption that these pages exist in this file; treat the related sections in `page-matrix.md` and `prompt-pack.md` as BTCC-style conventions, not as Figma-source-backed rules.
+
+| Page | Status | Note |
+| --- | --- | --- |
+| `全局组件` | Not present | Component instances such as `次级button` are still referenced as anatomy patterns. |
+| `图标` | Not present | Icon assets currently come from `设计规范` and `合约pro` exports. |
+| `换色` / `首页` / `资产` / `行情` / `老合约` / `TradFi` / `现货` / `跟单` / `登录注册` / `我的、设置` / `卡券/体验金` / `支付通道、NFT、提现` / `C2C` / `观点` / `h5` | Not present | If you need a pattern from any of these, ask han for a Figma node URL and re-verify before relying on it. |
 
 ## Token Philosophy
 
@@ -50,6 +41,16 @@ The Figma file has two local variable collections:
 | `梯度色板` | Primitive gray ramps used by semantic tokens. |
 
 When implementing web CSS, preserve semantic names as custom properties where possible, for example `--btcc-bg-primary`, `--btcc-text-primary`, `--btcc-fill-brand`.
+
+## Light Mode Derivation
+
+BTCC light mode is derived from dark, not authored independently. Concretely:
+
+- Brand / state hues are 1:1 across modes — `success` `#2CA85D`, `error` `#EB464F`, `warning` `#E0601F`, `check` `#F0B848`, and `secondaryAccent` `#84DC1F` carry the same hex value in both modes.
+- Brand blue shifts slightly: dark `#0C73ED` → light `#195EFF` (and pressed/disabled variants follow the same pair).
+- Bg / text / divider / border / fill / button surfaces invert: dark uses near-black (`#0C0F12`, `#13171B`, `#1A1F24`, `#212830`, `#2C3642`, `#3E4A59`, `#444D59`) for layering; light uses near-white (`#FFFFFF`, `#F1F2F5`, `#E4E6EB`, `#DBDEE6`) and inverts text/disabled into the `#13161C` / `#717C95` / `#A6AEC1` ramp.
+
+Generation rule: when the user only asks for one mode, still ship both `:root,[data-theme="dark"]` and `[data-theme="light"]` blocks. Only diverge from the published light values if the user explicitly asks for a custom light palette — do not synthesize new light hexes per component.
 
 ## Semantic Color Tokens
 
@@ -103,7 +104,7 @@ When implementing web CSS, preserve semantic names as custom properties where po
 | `fill-brand` | `#0C73ED` | `#195EFF` | Brand color, selected states, primary CTA. |
 | `fill-brand-alert` | `#0C73ED 20%` | `#195EFF 20%` | Low-emphasis brand alert or selected background. |
 | `fill-secondary-colors` | `#84DC1F` | `#84DC1F` | Secondary accent; use sparingly. |
-| `fill-success` | `#2CA85D` | `#2CA85D` | Positive states, profit, long/buy confirmation. |
+| `fill-success` | `#2CA85D` | `#2CA85D` | Positive states, profit numbers, success toasts, bid-row coloring. Note: in BTCC `合约pro` the `Open Long` action button uses `fill/Brand`, not `fill/Success`. |
 | `fill-success-alert` | `#2CA85D 20%` | `#2CA85D 20%` | Low-emphasis success background. |
 | `fill-error` | `#EB464F` | `#EB464F` | Negative states, loss, errors, short/sell emphasis. |
 | `fill-error-alert` | `#EB464F 20%` | `#EB464F 20%` | Low-emphasis error background. |
@@ -119,7 +120,7 @@ When implementing web CSS, preserve semantic names as custom properties where po
 | `fill-brand-button-normal` | `#0C73ED` | `#195EFF` | Primary button default. |
 | `fill-brand-button-pressed` | `#0B6ADB` | `#1858F0` | Primary button pressed/active. |
 | `fill-brand-button-disable` | `#202738` | `#E1E6F1` | Disabled primary button. |
-| `fill-green-button-pressed` | `#1B8248` | `#299C56` | Pressed buy/long button. |
+| `fill-green-button-pressed` | `#1B8248` | `#299C56` | Pressed state for any green/positive button (e.g. spot buy, success-state button). Not used for the `合约pro` long button — that one uses `fill-brand-button-pressed`. |
 | `fill-red-button-pressed` | `#C4313D` | `#E0434B` | Pressed sell/short button. |
 | `fill-secondary-button-normal` | `#212830` | `#E4E6EB` | Secondary button default. |
 | `fill-secondary-button-pressed` | `#1A1F24` | `#F1F2F5` | Secondary button pressed. |
@@ -391,8 +392,11 @@ Web adaptation:
 
 - Keep Open/Close and order type above price/amount fields.
 - Put available balance above the form inputs.
-- Use success green for buy/long and error red for sell/short when actions are directional.
-- Primary brand blue is for neutral product actions, selected states, and non-directional CTAs.
+- Direction buttons follow the BTCC `合约pro` source:
+  - `Open Long` button uses `fill/Brand` (`--btcc-brand`, blue).
+  - `Open Short` button uses `fill/Error` (`--btcc-error`, red).
+- Numeric direction cues elsewhere — bid rows, positive percent change, profit text — still use success/green.
+- Brand blue is also used for neutral product actions, selected states, and non-directional CTAs.
 
 ### Order Book
 
@@ -446,9 +450,11 @@ Rules:
 
 Use three intent families:
 
-- Brand button: primary neutral action, selected CTA, submit.
-- Success button: buy/long/positive trading direction.
-- Error button: sell/short/destructive or negative direction.
+- Brand button: primary neutral action, selected CTA, submit, AND the `Open Long` direction button in `合约pro`.
+- Success button: positive numeric state (e.g. PnL highlight, success toast). Not used for the long action button in BTCC.
+- Error button: sell/short/destructive or negative direction, including the `Open Short` direction button.
+
+Note: BTCC's `合约pro` source paints `Open Long` blue and `Open Short` red — it does not follow the common "long=green / short=red" convention on the action button. Numeric direction (bid/ask, change, pnl) still uses standard green/red.
 
 Rules:
 
@@ -560,9 +566,10 @@ Selected states should not rely on color alone. Combine color with weight, under
 
 For charts, order books, and market modules:
 
-- Green means positive, bid, profit, buy, or long.
+- Green means positive, bid, profit, or upward price movement.
 - Red means negative, ask, loss, sell, short, or error.
-- Brand blue means product selection or primary neutral action, not price direction.
+- Brand blue means product selection, primary neutral action, and the `Open Long` action button. It is not used for price-direction in numeric cells.
+- Direction-action buttons are an exception to the standard color mapping: `Open Long` is brand blue and `Open Short` is red — only the buttons, not the numeric cells.
 - Use subdued gridlines and low-contrast backgrounds.
 - Use compact legends and labels.
 - Keep chart controls close to the chart.

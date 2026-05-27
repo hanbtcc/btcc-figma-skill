@@ -1,3 +1,30 @@
+:root {
+  --btcc-radius-tag: 4px;
+  --btcc-radius-control: 6px;
+  --btcc-radius-card: 12px;
+  --btcc-radius-pill: 100px;
+  --btcc-size-control-sm: 28px;
+  --btcc-size-button: 38px;
+  --btcc-size-input: 42px;
+  --btcc-size-row-sm: 22px;
+  --btcc-size-row: 24px;
+  --btcc-size-nav: 44px;
+  --btcc-size-tabbar: 78px;
+  --btcc-space-1: 4px;
+  --btcc-space-2: 8px;
+  --btcc-space-3: 12px;
+  --btcc-space-4: 16px;
+  --btcc-space-6: 24px;
+  --btcc-font-family-sans: "Helvetica Neue", "PingFang SC", "Helvetica", system-ui, -apple-system, sans-serif;
+  --btcc-font-weight-regular: 400;
+  --btcc-font-weight-medium: 500;
+  --btcc-font-size-xs: 10px;
+  --btcc-font-size-sm: 12px;
+  --btcc-font-size-md: 14px;
+  --btcc-line-height-tight: 18px;
+  --btcc-line-height-base: 20px;
+}
+
 :root,
 [data-theme="dark"] {
   --btcc-bg-primary: #0c0f12;
@@ -29,6 +56,7 @@
   --btcc-brand: #0c73ed;
   --btcc-brand-pressed: #0b6adb;
   --btcc-brand-alert: rgb(12 115 237 / 20%);
+  --btcc-secondary-accent: #84dc1f;
   --btcc-success: #2ca85d;
   --btcc-success-pressed: #1b8248;
   --btcc-success-alert: rgb(44 168 93 / 20%);
@@ -76,6 +104,7 @@
   --btcc-brand: #195eff;
   --btcc-brand-pressed: #1858f0;
   --btcc-brand-alert: rgb(25 94 255 / 20%);
+  --btcc-secondary-accent: #84dc1f;
   --btcc-success: #2ca85d;
   --btcc-success-pressed: #299c56;
   --btcc-success-alert: rgb(44 168 93 / 20%);

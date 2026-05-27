@@ -28,6 +28,7 @@ Load these on demand:
 | Trading form, order book, tab bar, buttons, modals, tables anatomy | `references/components.md` |
 | Icon roles, sizes, Figma cues, fallback icon names | `references/icons.md` |
 | Page-specific structure for contract, home, markets, wallet, auth, copy, spot, C2C, H5 | `references/page-matrix.md` |
+| 合约pro sub-screen index (node IDs for order entry, TP/SL, history, calculator, etc.) | `references/contract-screens.md` |
 | Number formats, trading labels, mock data, positive/negative semantics | `references/data-format.md` |
 | Page-level gold standards for contract, mobile, market, wallet, auth | `references/golden-examples.md` |
 | Prompt regression tests and pass/fail expectations | `references/prompt-evals.md` |
@@ -57,9 +58,14 @@ Reusable assets:
 - Use original BTCC semantic tokens instead of arbitrary colors.
 - Use `assets/btcc-tokens.css` or `assets/btcc-tokens.json` when creating web code if no project token system already exists.
 - Preserve light-mode mappings when creating themeable code.
-- Use brand blue for neutral primary actions and selected states.
-- Use green for buy, long, bid, profit, positive, and success states.
+- Direction-action color in BTCC `合约pro` is INVERTED from common Western exchanges:
+  - `Open Long` button uses `fill/Brand` (`--btcc-brand`, blue).
+  - `Open Short` button uses `fill/Error` (`--btcc-error`, red).
+  - Do not switch `Open Long` to green even though "long = green" is the common convention elsewhere; the original Figma source uses brand blue.
+- Numeric semantics still follow standard convention: positive change/profit/bid uses success/green, negative change/loss/ask uses error/red.
+- Use brand blue for primary neutral actions, selected states, and the long-direction button.
 - Use red for sell, short, ask, loss, negative, error, and destructive states.
+- Reserve success/green for positive numeric/state cues (profit, bid depth, success toasts), not for the long button.
 - Use compact spacing, dense rows, thin dividers, restrained borders, and tabular numbers.
 - Keep product state, market state, account state, or trading actions visible in the first viewport.
 - Use tabs for major operational states and segmented controls for mode switches.
@@ -98,7 +104,7 @@ Known source anchors:
 - Using a large gradient hero as the first screen of an operational page.
 - Making every section a floating card.
 - Using green/red as decoration instead of market or transaction state.
-- Using brand blue for long/short trading actions.
+- Coloring `Open Long` green by default — BTCC source uses brand blue for long and red only for short. Do not "fix" it back to green.
 - Hiding trading/account actions below the fold.
 - Making table rows too tall or sparse.
 - Forgetting tabular numbers for prices and balances.

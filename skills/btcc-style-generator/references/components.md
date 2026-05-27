@@ -4,11 +4,9 @@ Use this file when generating implementation details, reviewing page structure, 
 
 ## Secondary Button
 
-Original Figma component set:
+Reference instance pattern (originally cited as `全局组件 / 次级button`; that page did not appear in the current `get_metadata` pass, so treat the variants below as anatomy guidance, not as a guaranteed published component set):
 
-- Page: `全局组件`
-- Name: `次级button`
-- Variants:
+- Cited variants:
   - `Property 1=normal, size=extra small`
   - `Property 1=normal, size=small`
   - `Property 1=normal, size=Medium`
@@ -27,12 +25,10 @@ Rules:
 
 ## Bottom TabBar
 
-Original Figma component set:
+Reference instance pattern (cited as `合约pro / TabBar 底部标签栏`; observed inside `合约pro` mobile frames as a recurring 375 × 78 row, not yet re-verified as a published component set):
 
-- Page: `合约pro`
-- Name: `TabBar 底部标签栏`
-- Variants: `home`, `discover`, `copy`, `assets`, `trade`
-- Size: `375 x 78`
+- Variants observed: `home`, `discover`, `copy`, `assets`, `trade`
+- Size: `375 × 78`
 
 Rules:
 
@@ -94,8 +90,12 @@ Rules:
 - Keep controls dense and vertically stable.
 - Use 38-44px input/button height.
 - Keep available balance above price/amount inputs.
-- Long/buy uses success; short/sell uses error.
-- Do not use brand blue for long/short buttons.
+- Direction colors (BTCC `合约pro` reality, not the common Western default):
+  - `Open Long` uses `fill/Brand` (`--btcc-brand`, blue).
+  - `Open Short` uses `fill/Error` (`--btcc-error`, red).
+  - Pressed states map to `fill/Brand Button/Pressed` and `fill/Red Button Pressed` respectively.
+  - Do not paint long buttons green even when the surrounding numeric cells are green.
+- Use success/green tokens for numeric direction cues (bid rows, positive change, profit text), not for the long button.
 - Unit selectors sit inside or adjacent to inputs.
 - `TP/SL` is a compact control, not a full explanation block.
 

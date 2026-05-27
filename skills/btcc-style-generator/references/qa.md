@@ -8,7 +8,7 @@ These require revision:
 
 - First viewport has no market, account, product, or trading state.
 - Contract/trading page lacks order form or order book.
-- Long/buy or short/sell actions use brand blue instead of success/error.
+- `Open Long` does not use `fill/Brand` (brand blue) or `Open Short` does not use `fill/Error` (red). BTCC's `合约pro` reverses the common Western "long=green / short=red" convention; the long button is brand blue and only the short button is red. Profit/loss numbers, bid/ask depth, and pnl text still use green for positive and red for negative.
 - Large decorative gradient hero appears in an operational page.
 - Text overlaps, clips, or wraps incoherently inside compact controls.
 - Numeric columns are not aligned or not tabular.
@@ -32,7 +32,7 @@ The script is intentionally heuristic. It checks common drift:
 - missing tabular number styling
 - icon-only buttons without `aria-label` or `title`
 - contract pages missing order book / long / short terms
-- long/short actions without success/error semantic cues
+- Open Long not using brand blue, or Open Short not using error red
 - marketing hero language mixed into trading pages
 
 Run the script as a supplement to visual and Figma checks, not a replacement.
@@ -58,6 +58,7 @@ Run the script as a supplement to visual and Figma checks, not a replacement.
 ## Content Checks
 
 - Uses stable BTCC trading terms: `Perp`, `TP/SL`, `Available`, `Open Long`, `Open Short`.
+- `Open Long` uses `fill/Brand` (brand blue), `Open Short` uses `fill/Error` (red). Do not invert this even when stylistic instinct suggests green/red.
 - Empty states are short and action-oriented.
 - Risk/error copy is concise.
 - No long educational prose inside trading panels.

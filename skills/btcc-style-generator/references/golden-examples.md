@@ -2,6 +2,8 @@
 
 Use these as structural benchmarks. They are not pixel specs; they describe the minimum shape a generated BTCC-style page should preserve.
 
+> **Source-verification note.** Only the contract-trading examples are backed by a verified Figma source page (`合约pro`, node `1262:304`; main mobile frame `合约pro-dark` `3112:1423`). Market table, wallet/assets, and auth/login examples below are general BTCC-style conventions consistent with the verified contract surface; their Figma source pages were not returned in the current `get_metadata` pass. If han points at a specific Figma node for one of these surfaces, re-verify before treating the rules below as canonical.
+
 ## Contract Trading Desktop
 
 Purpose: dense pro trading workspace.
@@ -16,8 +18,9 @@ Required first viewport:
 
 BTCC traits:
 
-- Brand blue only for selected neutral controls.
-- Long button is green; short button is red.
+- Brand blue for selected neutral controls AND for the `Open Long` button.
+- `Open Short` button is red (`--btcc-error`).
+- Numeric direction cues still use green for positive / red for negative (bid rows, percent change, pnl) — but the long button itself is brand blue, not green.
 - Numeric columns are tabular and tightly aligned.
 - Use local icons: `market-stats.svg`, `kline.svg`, `more.svg`, `dropdown.svg`, `warning-circle.svg`.
 

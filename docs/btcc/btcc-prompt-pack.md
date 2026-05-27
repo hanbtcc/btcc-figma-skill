@@ -21,9 +21,9 @@ Use the BTCC design system:
 - Use neutral surfaces, thin dividers, compact spacing, and tabular numbers.
 - Use compact line icons that match the BTCC Figma source: 24px toolbar icons, 16px inline icons, and 10-14px selector/status icons.
 - Use BTCC token governance: primitive tokens, semantic tokens, then component tokens. Do not hardcode component colors when a token exists.
-- Use brand blue for primary neutral actions and selected states.
-- Use green for positive, bid, profit, buy, and long states.
-- Use red for negative, ask, loss, sell, short, error, and destructive states.
+- Use brand blue for primary neutral actions, selected states, and the `Open Long` direction button.
+- Use red for negative, ask, loss, sell, short, error, and destructive states, including the `Open Short` direction button.
+- Use green for positive numeric direction (bid rows, positive change, profit text). BTCC's `合约pro` reverses the common western "long=green" convention on the action button — do not paint the long button green.
 - Use warning orange and check gold only for their specific semantic states.
 - Use tabs for major operational states and segmented controls for mode switches.
 - Use tables, order-book rows, compact panels, and dense form controls for data-heavy areas.
@@ -104,7 +104,8 @@ Design requirements:
 - Default to dark trading UI.
 - Keep the first viewport operational: show product state, market/account data, and primary actions immediately.
 - Use compact panels, tabs, segmented controls, dense tables, and clear action hierarchy.
-- Use green/red only for directional market or transaction states.
+- Use green/red for directional numeric state (price change, profit/loss, bid/ask depth).
+- Direction buttons follow BTCC `合约pro`: `Open Long` is brand blue, `Open Short` is red.
 - Use brand blue for primary neutral actions, selected states, and product emphasis.
 - Use tabular numbers for prices, balances, percentages, quantities, and timestamps.
 - Keep cards limited to repeated modules or true contained tools.
@@ -133,7 +134,7 @@ Style:
 - Use BTCC dark tokens.
 - Use compact 24-32px data rows.
 - Use 38-44px primary form buttons.
-- Use green for long/buy and red for short/sell.
+- `Open Long` button uses `--btcc-brand` (blue); `Open Short` button uses `--btcc-error` (red). Bid rows, positive numbers, and profit text still use green; ask rows and negative numbers still use red.
 - Keep explanatory copy minimal and operational.
 ```
 
@@ -297,7 +298,7 @@ Use a dense order book with ask rows above, bid rows below, mid price between th
 ### Trading Form
 
 ```text
-Use a compact trading form with available balance, order type, price, amount, slider, TP/SL, risk rows, and directional actions. Long/buy actions use green; short/sell actions use red; neutral submit actions use brand blue.
+Use a compact trading form with available balance, order type, price, amount, slider, TP/SL, risk rows, and directional actions. The `Open Long` action button uses brand blue (`--btcc-brand`); the `Open Short` action button uses error red (`--btcc-error`). Numeric direction cues elsewhere (bid rows, positive change, profit text) still use success/green. Neutral submit actions use brand blue. Do not paint the `Open Long` button green even though "long=green" is the common convention in other exchanges — BTCC's `合约pro` reverses it on the action button.
 ```
 
 ### Empty State

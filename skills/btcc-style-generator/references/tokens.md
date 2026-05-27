@@ -8,6 +8,8 @@ Use this file when implementing BTCC theme variables, mapping Figma tokens to co
 | --- | --- | --- | --- |
 | `semantic` | `变量合集` | `dark`, `light` | Semantic UI colors for text, surfaces, dividers, fills, alerts, buttons. |
 | `gray-ramp` | `梯度色板` | `Mode 1` | Primitive dark/light gray ramps. |
+| `size` | (not exposed as Figma variables) | n/a | Radius / control height / spacing observed from `合约pro-dark`. |
+| `typography` | (not exposed as Figma variables) | n/a | Font family, weight, size, line-height observed from `合约pro-dark`. |
 
 ## Semantic Tokens
 
@@ -104,8 +106,63 @@ Use this file when implementing BTCC theme variables, mapping Figma tokens to co
 ## Usage Rules
 
 - Use semantic tokens in components. Use primitive ramp tokens only when defining or debugging semantic tokens.
-- Directional trading actions use success/error tokens, not brand tokens.
-- Primary neutral actions use brand button tokens.
+- Light mode is dark-derived, not authored separately. Brand / state / accent hues are mostly 1:1 across modes (`success` `#2CA85D`, `error` `#EB464F`, `warning` `#E0601F`, `check` `#F0B848`, `secondaryAccent` `#84DC1F`); only `brand` shifts (`#0C73ED` → `#195EFF`). Bg / text / divider / border / fill / button surfaces invert across the gray ramp. Do not synthesize new light hexes per component.
+- BTCC `合约pro` direction-button rule (overrides the common "long=green / short=red" convention on the action button only):
+  - `Open Long` button → `--btcc-brand`, pressed → `--btcc-brand-pressed`.
+  - `Open Short` button → `--btcc-error`, pressed → `--btcc-error-pressed`.
+  - Numeric direction in the same page (bid rows, percent change, pnl text) still uses success/green for positive and error/red for negative.
+- Primary neutral actions also use brand button tokens.
 - Inputs, tags, switches, cards, modals, and dividers must use their original Figma semantic tokens.
 - Preserve dark and light values even if the current task only asks for dark mode.
+- For non-color values (radius / control height / spacing / typography), prefer `--btcc-radius-*`, `--btcc-size-*`, `--btcc-space-*`, `--btcc-font-*` over arbitrary numbers; these are observed from `合约pro-dark` and not yet first-class Figma variables, so flag any deviation explicitly when shipping.
+
+## Size Tokens (observed)
+
+The Figma source file does not expose radius / size / spacing as named variables. The values below are observed from `合约pro-dark` (`3112:1423`) sub-frames and codified for reuse. Treat them as conventions backed by the verified contract page, not as canonical published variables.
+
+### Radius
+
+| Token | Value | Observed at | Use |
+| --- | --- | --- | --- |
+| `--btcc-radius-tag` | `4px` | `Frame 431` (`Perp` tag) | small tags, chips |
+| `--btcc-radius-control` | `6px` | order form inputs (`3112:1481`, `3112:1490`, `3112:1495`), Open/Close segment (`3112:1468`) | inputs, segmented controls, secondary surfaces |
+| `--btcc-radius-card` | `12px` | bottom sheets, large cards | cards, modals, sheets |
+| `--btcc-radius-pill` | `100px` | direction buttons (`Frame 1707481005` long/short) | full-pill direction buttons, tab indicators |
+
+### Control Heights
+
+| Token | Value | Observed at | Use |
+| --- | --- | --- | --- |
+| `--btcc-size-control-sm` | `28px` | mode segmented control, leverage row, `limit` selector | compact controls inside a panel |
+| `--btcc-size-button` | `38px` | `Open Long` / `Open Short` buttons | primary direction action |
+| `--btcc-size-input` | `42px` | price/amount input, BBO sidecar | price/amount input fields |
+| `--btcc-size-row-sm` | `22px` | product nav row text height | dense text rows |
+| `--btcc-size-row` | `24px` | order book rows | order book / dense table rows |
+| `--btcc-size-nav` | `44px` | product nav, status bar, bottom orders bar | top/bottom nav rows |
+| `--btcc-size-tabbar` | `78px` | bottom `TabBar 底部标签栏` | mobile bottom tab bar |
+
+### Spacing
+
+| Token | Value | Use |
+| --- | --- | --- |
+| `--btcc-space-1` | `4px` | tight inline gaps inside controls |
+| `--btcc-space-2` | `8px` | gap between stacked rows in trading form |
+| `--btcc-space-3` | `12px` | input internal horizontal padding |
+| `--btcc-space-4` | `16px` | screen side gutter |
+| `--btcc-space-6` | `24px` | section break inside a panel |
+
+## Typography Tokens (observed)
+
+Helvetica Neue Regular / Medium observed across `合约pro-dark` (price input, direction button, leverage row, order book). The source file uses these as raw text styles, not named typography variables.
+
+| Token | Value | Use |
+| --- | --- | --- |
+| `--btcc-font-family-sans` | `"Helvetica Neue", "PingFang SC", "Helvetica", system-ui, -apple-system, sans-serif` | default UI font |
+| `--btcc-font-weight-regular` | `400` | labels, table cells, secondary text |
+| `--btcc-font-weight-medium` | `500` | direction button, price emphasis, segmented control active text |
+| `--btcc-font-size-xs` | `10px` | secondary labels (`price(USDT)`, mode segment text) |
+| `--btcc-font-size-sm` | `12px` | leverage values, pair tag, table headers, ratio strip |
+| `--btcc-font-size-md` | `14px` | direction button label, price value |
+| `--btcc-line-height-tight` | `18px` | dense rows |
+| `--btcc-line-height-base` | `20px` | default body lines |
 

@@ -24,14 +24,20 @@ Use color for market/account state, not decoration.
 
 | Meaning | Token intent |
 | --- | --- |
-| Buy, bid, long, positive, profit, success | success/green |
-| Sell, ask, short, negative, loss, error | error/red |
-| Primary neutral action, selected tab, brand affordance | brand blue |
+| Bid row, positive change, profit number, success toast | success/green |
+| Ask row, negative change, loss number, error/destructive | error/red |
+| Primary neutral action, selected tab, brand affordance, **`Open Long` button** | brand blue |
+| **`Open Short` button** | error/red |
 | Warning, liquidation risk, abnormal status | warning/orange |
 | Funding/check/limited reward highlight | check/yellow |
 | Disabled, unavailable, placeholder | text/icon disabled and low-contrast fill |
 
-Do not use brand blue for `Open Long` or `Open Short`. Use success and error.
+Direction-button rule (specific to BTCC `合约pro`):
+
+- `Open Long` button uses `fill/Brand` / `--btcc-brand` (blue), not green.
+- `Open Short` button uses `fill/Error` / `--btcc-error` (red).
+- Numeric pnl/change/depth still uses green for positive and red for negative — only the action button itself is colored differently from the common "long=green / short=red" western convention.
+- Do not switch the long button to green to "match" surrounding green pnl text; the source Figma file `合约pro-dark` paints the long button blue.
 
 ## Labels
 
