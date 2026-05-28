@@ -54,6 +54,8 @@ Old flat-layout paths are gone. Map any cached prompt or memory through this tab
 | Modify a token value | app | for-code-generation | `platform-app/for-code-generation/tokens-colors.md` (color) or `tokens-size-typography.md` (size/type). For Web, tokens are not yet extracted — flag as Unverified per `platform-web/rules-web.md` R-ASSETS-WEB. |
 | Add a new page (unverified surface, APP) | app | for-code-generation + for-figma-inspect | `platform-app/for-code-generation/pages-other.md` (carry the Unverified marker per `rules.md` R-SCOPE-1), `platform-app/for-figma-inspect/source-anchors.md` |
 | Generate a Web page | web | (limited) | `platform-web/rules-web.md`, `platform-web/for-figma-inspect/source-anchors.md`. **Web `for-code-generation/` is not yet populated**; either confirm with han before generating Web code, or carry the Unverified marker per `rules.md` R-SCOPE-1 and `platform-web/rules-web.md` R-ASSETS-WEB. |
+| Generate a campaign LP (Web) | web | for-figma-inspect + for-prompt-design | `platform-web/rules-web.md`, `platform-web/for-figma-inspect/source-anchors.md` (see "LP activity reference" — start from `7752:73942 jjj交易赛` patterns), `for-prompt-design/figma-plugin-pitfalls.md` |
+| Build any Figma node via `use_figma` | both | for-prompt-design | `for-prompt-design/figma-plugin-pitfalls.md` (mandatory pre-flight) |
 
 ## Reusable Assets
 
@@ -69,6 +71,8 @@ Note: Tokens are currently APP-derived; Web token parity is unverified — see `
 ## Figma Plugin Workflow
 
 When the Figma plugin is available:
+
+**Before calling `use_figma`:** read `references/for-prompt-design/figma-plugin-pitfalls.md`. It documents observed Plugin API gotchas (font features, range fills, hug-content, hex conversion) and a pre-flight checklist that prevents the most common silent failures.
 
 ### APP (新BTCC APP, fileKey `GW9kMfpf0Nib5DG4TjoWBp`)
 
