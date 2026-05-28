@@ -1,0 +1,182 @@
+{
+  "$source": "新BTCC WEB Figma file (VrE25c6IAuIieWngebNnwx) — sampled 2026-05-28",
+  "$see": "tokens/web-tokens.css for the canonical CSS layer; rules.md R-TOKEN-WEB for naming policy",
+
+  "color": {
+    "dark": {
+      "bg": {
+        "primary": "#0c0f12",
+        "card": "#13171b",
+        "toast": "#212830",
+        "tips": "#1d232a"
+      },
+      "fill": {
+        "brand-button": {
+          "normal": "#0c73ed",
+          "hover": "#0b6adb",
+          "pressed": "#0a5fc4",
+          "disable": "#202738"
+        },
+        "secondary-button": {
+          "normal": "#212830",
+          "hover": "#2b333d",
+          "pressed": "#353d48"
+        },
+        "page-input": "#1d232a",
+        "primary-container": "#1d232a",
+        "error": "#eb464f",
+        "success": "#2ca85d",
+        "warning": "#e0601f",
+        "check": "#f0b848",
+        "switch-off": "#444d59",
+        "info-alert": "#11375d",
+        "success-alert": "#14513c",
+        "danger-alert": "#5c2329",
+        "warning-alert": "#5b3415"
+      },
+      "text-icon": {
+        "primary": "#f1f3f5",
+        "secondary": "#878f99",
+        "disable": "#3d4655",
+        "anti": "#ffffff",
+        "error": "#eb464f",
+        "success": "#2ca85d",
+        "warning": "#e0601f"
+      },
+      "divider": { "primary": "#212830" },
+      "border": { "primary": "#212830" }
+    },
+    "light": {
+      "bg": {
+        "primary": "#ffffff",
+        "card": "#ffffff",
+        "toast": "#ffffff",
+        "tips": "#ffffff"
+      },
+      "fill": {
+        "brand-button": {
+          "normal": "#195eff",
+          "hover": "#1450e6",
+          "pressed": "#0f44cc",
+          "disable": "#e6edf7"
+        },
+        "secondary-button": {
+          "normal": "#f5f7fa",
+          "hover": "#ebeef3",
+          "pressed": "#dfe3eb"
+        },
+        "page-input": "#f5f7fa",
+        "primary-container": "#f5f7fa",
+        "error": "#eb464f",
+        "success": "#2ca85d",
+        "warning": "#e0601f",
+        "check": "#f0b848",
+        "switch-off": "#c6cdd6",
+        "info-alert": "#e6f0ff",
+        "success-alert": "#e1f4ea",
+        "danger-alert": "#fde6e8",
+        "warning-alert": "#fde9d8"
+      },
+      "text-icon": {
+        "primary": "#13161c",
+        "secondary": "#717c95",
+        "disable": "#b6bcc9",
+        "anti": "#ffffff",
+        "error": "#eb464f",
+        "success": "#2ca85d",
+        "warning": "#e0601f"
+      },
+      "divider": { "primary": "#ebeef3" },
+      "border": { "primary": "#ebeef3" }
+    }
+  },
+
+  "geometry": {
+    "radius": {
+      "pill": 100,
+      "pill-sm": 29,
+      "page-page": 19,
+      "page-nav": 25,
+      "input": 4,
+      "card": 4,
+      "alert": 4,
+      "dialog": 8
+    },
+    "control-height": {
+      "button": 48,
+      "button-sm": 28,
+      "input": 48,
+      "tab": 40,
+      "page": 32,
+      "switch": 16
+    },
+    "switch": { "width": 30, "ball": 12 },
+    "spacing": {
+      "2": 2, "4": 4, "6": 6, "8": 8, "12": 12, "16": 16,
+      "20": 20, "24": 24, "32": 32, "40": 40, "48": 48,
+      "56": 56, "64": 64, "80": 80
+    },
+    "layout": {
+      "container-w": 1200,
+      "canvas-w": 1920,
+      "content-margin": 360
+    }
+  },
+
+  "typography": {
+    "font-family": {
+      "base": "Lato, PingFang SC, sans-serif",
+      "num": "Lato, PingFang SC, sans-serif",
+      "cn": "PingFang SC, Lato, sans-serif"
+    },
+    "font-size": {
+      "xs": 12, "sm": 14, "md": 16, "lg": 20,
+      "xl": 24, "2xl": 32, "display": 40, "jumbo": 48
+    },
+    "font-weight": {
+      "regular": 400, "medium": 500, "semibold": 600, "bold": 700
+    },
+    "line-height": { "tight": 1.2, "normal": 1.4, "loose": 1.6 }
+  },
+
+  "component-anchors": {
+    "button-primary": "741:4552",
+    "button-outline": "741:4616",
+    "button-secondary-sm": "554:5252",
+    "tab-primary": "554:5228",
+    "tab-secondary": "554:5221",
+    "input-order-type": "126691:93620",
+    "input-amount": "554:5273",
+    "pagination": "5568:196480",
+    "switch": "734:14906",
+    "alert": "770:8645",
+    "toast": "4558:37495",
+    "tips": "112251:212465",
+    "topnav": "647:12465",
+    "orderbook": "647:13104",
+    "trading-form": "651:14846",
+    "selector": "647:13107",
+    "tp-sl": "554:5318",
+    "checkbox": "1109:4825",
+    "radio": "112251:211871"
+  },
+
+  "lp-template-anchors": {
+    "trading-contest": "7752:73942",
+    "trading-contest-h5": "7872:82203",
+    "spinner-8": "118680:273993",
+    "spinner-9": "118680:274021",
+    "spinner-10": "118680:274052",
+    "grid-9": "130471:7587",
+    "blindbox-pre-open": "123281:58352",
+    "blindbox-opening": "123412:159584",
+    "blindbox-opened-win": "123412:157328",
+    "slot-en": "128326:3798",
+    "scratchcard": "130722:132548",
+    "generic-lp": "120454:274073",
+    "generic-lp-2": "120858:302678",
+    "generic-lp-3": "128160:3792",
+    "win-modal-web": "120960:276861",
+    "lose-modal-web": "120960:276865"
+  }
+}

@@ -1,0 +1,204 @@
+/**
+ * BTCC Web Tokens (CSS Custom Properties)
+ *
+ * 来源：新BTCC WEB Figma file (VrE25c6IAuIieWngebNnwx)
+ * 抓样：2026-05-28，组件 nodeId 在每节注释中标注
+ *
+ * 命名规则：
+ *   Figma 中文路径 `text和icon/primary` → CSS `--text-icon-primary`
+ *   Figma 路径 `fill/brand-button/normal` → CSS `--fill-brand-button-normal`
+ *   `/` 替换为 `-`，中文片段保留语义英译（text和icon → text-icon）
+ *
+ * 不要使用 `--btcc-*` / `--primary` / `--accent` —— 它们不在 Figma 变量集合里
+ * （详见 ../btcc-shared/rules-shared.md R-SHARED-4 与 ./rules.md R-TOKEN-WEB）。
+ */
+
+/* ============== Dark theme（默认） ============== */
+:root,
+[data-theme="dark"] {
+  /* ---- Background ---- */
+  --bg-primary: #0c0f12;
+  --bg-card: #13171b;
+  --bg-toast: #212830;        /* 4558:37495 toast */
+  --bg-tips: #1d232a;         /* 112251:212465 tips */
+
+  /* ---- Fill (颜色填充, 主要给可交互元素) ---- */
+  --fill-brand-button-normal: #0c73ed;     /* 741:4552 一级button bg, Open Long bg */
+  --fill-brand-button-hover: #0b6adb;
+  --fill-brand-button-pressed: #0a5fc4;
+  --fill-brand-button-disable: #202738;
+
+  --fill-secondary-button-normal: #212830; /* 554:5252 次级button bg */
+  --fill-secondary-button-hover: #2b333d;
+  --fill-secondary-button-pressed: #353d48;
+
+  --fill-page-input: #1d232a;              /* 126691:93620 订单类型 input bg */
+  --fill-primary-container: #1d232a;       /* 5568:196480 prev/next bg */
+
+  --fill-error: #eb464f;       /* Open Short bg */
+  --fill-success: #2ca85d;
+  --fill-warning: #e0601f;
+  --fill-check: #f0b848;
+
+  --fill-switch-off: #444d59;  /* 734:14906 switch off ball track */
+  --fill-switch-on: var(--fill-brand-button-normal);
+
+  --fill-info-alert: #11375d;     /* 770:8645 Alert info bg */
+  --fill-success-alert: #14513c;  /* Alert success bg */
+  --fill-danger-alert: #5c2329;   /* Alert danger bg */
+  --fill-warning-alert: #5b3415;  /* Alert warning bg */
+
+  /* ---- Text & Icon ---- */
+  --text-icon-primary: #f1f3f5;
+  --text-icon-secondary: #878f99;
+  --text-icon-disable: #3d4655;
+  --text-icon-anti: #ffffff;       /* 按钮上的文字 */
+  --text-icon-error: #eb464f;
+  --text-icon-success: #2ca85d;
+  --text-icon-warning: #e0601f;
+  --text-icon-link: var(--fill-brand-button-normal);
+
+  /* ---- Divider / Border ---- */
+  --divider-primary: #212830;
+  --border-primary: #212830;
+
+  /* ---- Shadow ---- */
+  --shadow-toast: 0 8px 10.4px rgba(0, 0, 0, 0.12);
+  --shadow-tips: 0 4px 8px rgba(0, 0, 0, 0.16);
+  --shadow-dialog: 0 12px 24px rgba(0, 0, 0, 0.32);
+
+  /* ---- Status: PnL & Spot direction ---- */
+  --pnl-up: #2ca85d;             /* 数值方向，跟 spot 买入相同 */
+  --pnl-down: #eb464f;
+  --spot-buy: #2ca85d;
+  --spot-sell: #eb464f;
+}
+
+/* ============== Light theme ============== */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-toast: #ffffff;
+  --bg-tips: #ffffff;
+
+  --fill-brand-button-normal: #195eff;
+  --fill-brand-button-hover: #1450e6;
+  --fill-brand-button-pressed: #0f44cc;
+  --fill-brand-button-disable: #e6edf7;
+
+  --fill-secondary-button-normal: #f5f7fa;
+  --fill-secondary-button-hover: #ebeef3;
+  --fill-secondary-button-pressed: #dfe3eb;
+
+  --fill-page-input: #f5f7fa;
+  --fill-primary-container: #f5f7fa;
+
+  --fill-error: #eb464f;
+  --fill-success: #2ca85d;
+  --fill-warning: #e0601f;
+  --fill-check: #f0b848;
+
+  --fill-switch-off: #c6cdd6;
+  --fill-switch-on: var(--fill-brand-button-normal);
+
+  --fill-info-alert: #e6f0ff;
+  --fill-success-alert: #e1f4ea;
+  --fill-danger-alert: #fde6e8;
+  --fill-warning-alert: #fde9d8;
+
+  --text-icon-primary: #13161c;
+  --text-icon-secondary: #717c95;
+  --text-icon-disable: #b6bcc9;
+  --text-icon-anti: #ffffff;
+  --text-icon-error: #eb464f;
+  --text-icon-success: #2ca85d;
+  --text-icon-warning: #e0601f;
+  --text-icon-link: var(--fill-brand-button-normal);
+
+  --divider-primary: #ebeef3;
+  --border-primary: #ebeef3;
+
+  --shadow-toast: 0 8px 10.4px rgba(0, 0, 0, 0.06);
+  --shadow-tips: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-dialog: 0 12px 24px rgba(0, 0, 0, 0.12);
+
+  --pnl-up: #2ca85d;
+  --pnl-down: #eb464f;
+  --spot-buy: #2ca85d;
+  --spot-sell: #eb464f;
+}
+
+/* ============== Geometry tokens（Web 专属） ============== */
+:root {
+  /* Radius */
+  --radius-pill: 100px;        /* 一级 button 48h, 次级 button 28h 也接近 pill */
+  --radius-pill-sm: 29px;      /* 554:5252 次级 button h28 */
+  --radius-page-page: 19px;    /* 5568:196480 分页 current/normal */
+  --radius-page-nav: 25px;     /* 5568:196480 prev/next */
+  --radius-input: 4px;         /* 126691:93620 订单类型 input */
+  --radius-card: 4px;
+  --radius-alert: 4px;         /* 770:8645 / 4558:37495 / 112251:212465 */
+  --radius-dialog: 8px;
+
+  /* Control heights */
+  --h-button: 48px;            /* 一级 / 描边 button */
+  --h-button-sm: 28px;         /* 次级 button */
+  --h-input: 48px;
+  --h-tab: 40px;
+  --h-page: 32px;              /* 分页 */
+  --h-switch: 16px;
+  --switch-w: 30px;
+  --switch-ball: 12px;
+
+  /* Spacing scale (8 baseline + 4/2 增量) */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-80: 80px;
+
+  /* Layout */
+  --container-w: 1200px;       /* LP 和大多数操作页内容容器 */
+  --canvas-w: 1920px;          /* Figma 设计稿基线 */
+  --content-margin: 360px;     /* (1920 - 1200) / 2 */
+
+  /* Typography */
+  --font-family-base: "Lato", "PingFang SC", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-family-num: "Lato", "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-cn: "PingFang SC", "Lato", sans-serif;
+
+  --font-size-xs: 12px;        /* 次级 button、注释 */
+  --font-size-sm: 14px;        /* 默认 body、按钮、tab、分页 */
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-display: 40px;   /* LP 章节标题 */
+  --font-size-jumbo: 48px;     /* LP 我的状态、奖池数字 */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;   /* button / body / 价格 */
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;     /* tab 选中 */
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-loose: 1.6;
+}
+
+/* ============== Number rendering（R-SHARED-5） ============== */
+.btcc-num,
+.btcc-table td.num,
+[data-numeric] {
+  font-family: var(--font-family-num);
+  font-variant-numeric: tabular-nums;
+}
