@@ -1,5 +1,7 @@
 # BTCC Data Format
 
+> See `references/rules.md` for global rules. This file defines concrete data format conventions; rule rationale links back to rules.md.
+
 Use this when generating exchange UI copy, mock data, tables, order forms, charts, wallet balances, and empty states.
 
 ## Number Rules
@@ -18,30 +20,27 @@ Use this when generating exchange UI copy, mock data, tables, order forms, chart
 | Empty value | double dash | `--` |
 | Position/order count | label plus count | `Positions(0)` |
 
-## Semantic Color
+These format conventions align with rules.md R-NAME-2 placeholders.
 
-Use color for market/account state, not decoration.
+## Semantic Color Mapping
+
+Color binds to market / account state, not decoration (see rules.md R-COLOR-2 — color is status, not decoration).
 
 | Meaning | Token intent |
 | --- | --- |
-| Bid row, positive change, profit number, success toast | success/green |
-| Ask row, negative change, loss number, error/destructive | error/red |
-| Primary neutral action, selected tab, brand affordance, **`Open Long` button** | brand blue |
-| **`Open Short` button** | error/red |
-| Warning, liquidation risk, abnormal status | warning/orange |
-| Funding/check/limited reward highlight | check/yellow |
-| Disabled, unavailable, placeholder | text/icon disabled and low-contrast fill |
+| Bid row, positive change, profit number, success toast | success / green |
+| Ask row, negative change, loss number, error / destructive | error / red |
+| Primary neutral action, selected tab, brand affordance, `Open Long` button | brand blue |
+| `Open Short` button | error / red |
+| Warning, liquidation risk, abnormal status | warning / orange |
+| Funding / check / limited reward highlight | check / yellow |
+| Disabled, unavailable, placeholder | text / icon disabled and low-contrast fill |
 
-Direction-button rule (specific to BTCC `合约pro`):
-
-- `Open Long` button uses `fill/Brand` / `--btcc-brand` (blue), not green.
-- `Open Short` button uses `fill/Error` / `--btcc-error` (red).
-- Numeric pnl/change/depth still uses green for positive and red for negative — only the action button itself is colored differently from the common "long=green / short=red" western convention.
-- Do not switch the long button to green to "match" surrounding green pnl text; the source Figma file `合约pro-dark` paints the long button blue.
+Direction-button mapping (the row "Open Long button = brand blue / Open Short button = error red") is a concrete instantiation of rules.md R-COLOR-1; do not re-derive it locally.
 
 ## Labels
 
-Preferred terms:
+Preferred terms (per rules.md R-NAME-2):
 
 - `Open Long`
 - `Open Short`
@@ -61,13 +60,15 @@ Preferred terms:
 - `Demo`
 - `Perp`
 
-Avoid verbose educational text in trading panels. Use short labels and compact helper text.
+Use short labels and compact helper text; avoid verbose educational text in trading panels (see rules.md R-LAYOUT-1).
 
 ## Table Alignment
 
+Numeric and label alignment follows rules.md R-LAYOUT-2:
+
 - Right-align numeric columns.
 - Left-align pair, asset, status, and action labels.
-- Use `font-variant-numeric: tabular-nums`.
+- Numeric columns use `font-variant-numeric: tabular-nums`.
 - Keep signs visible for deltas: `+2.31%`, `-0.48%`.
 - Preserve precision consistency down a column.
 
@@ -83,4 +84,3 @@ Use realistic but clearly mock exchange values:
 | Order input | `Price`, `Amount`, `TP/SL` |
 | Wallet asset | `USDT`, `BTC`, `ETH` |
 | Empty states | `No open orders`, `No positions`, `No records` |
-

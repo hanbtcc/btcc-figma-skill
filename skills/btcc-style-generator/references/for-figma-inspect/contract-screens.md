@@ -1,17 +1,19 @@
+> See `references/rules.md` for global rules.
+
 # BTCC 合约pro Sub-Screen Index
 
 Lookup table for the `合约pro` page (`1262:304`) in Figma file `GW9kMfpf0Nib5DG4TjoWBp`.
 
 The page exposes ~200 frames across two swimlanes (the dark spec on the left, a paired set on the right) plus light-mode and historical revisions. This file groups them by purpose and keeps a single canonical node ID per name. Pull from the Figma plugin with `get_design_context` / `get_metadata` on the listed node IDs.
 
-> Treat this as a routing index, not a spec. The detailed component anatomy stays in `components.md`; the layout rules stay in `page-matrix.md`. When generating UI, locate the right frame here, then inspect it in Figma before producing code.
+> Treat this as a routing index, not a spec. Component anatomy lives in `for-code-generation/components-*.md`; page layout specs live in `for-code-generation/pages-*.md`; golden rules live in `rules.md`. When generating UI, locate the right frame here, then inspect it in Figma before producing code.
 
 ## How To Use
 
 1. Identify the user's request (e.g. "leverage picker", "history orders detail").
 2. Find the matching row below; copy the canonical node ID.
 3. Call `get_design_context` on that node ID for layout, and `get_metadata` if you need to drill into nested frames.
-4. Cross-check tokens against `tokens.md`, direction-button rules against `components.md`.
+4. Cross-check direction-button color (see `rules.md` R-COLOR-1), token values (see `for-code-generation/tokens-colors.md`), and component anatomy (see `for-code-generation/components-trading.md`).
 
 All frames listed are mobile (`375` wide) unless noted otherwise.
 
@@ -19,7 +21,7 @@ All frames listed are mobile (`375` wide) unless noted otherwise.
 
 | Surface | Canonical node ID | Size | Notes |
 | --- | --- | --- | --- |
-| `合约pro-dark` (verified anchor) | `3112:1423` | 375×812 | Main mobile contract workspace; primary source of truth for tokens, order form, order book, direction buttons. |
+| `合约pro-dark` (verified anchor) | `3112:1423` | 375×812 | Main mobile contract workspace; primary anchor for tokens, order form, order book, direction buttons (rule basis: `rules.md` R-COLOR-1). |
 | `合约pro-light` | `3598:1740` | 375×812 | Light-mode counterpart of the main workspace. |
 
 ## Empty States

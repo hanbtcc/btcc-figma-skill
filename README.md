@@ -11,22 +11,17 @@ It is intended for generating BTCC-style crypto exchange web pages, especially t
 - Verified pages (current `get_metadata` pass):
   - `设计规范` — primary token source (`0:1`)
   - `合约pro` — main contract trading reference (`1262:304`)
-- Component instance names referenced in earlier docs (treated as anatomy hints, not as guaranteed component-set pages):
+  - `合约pro-dark` — verified dark trading layout (`3112:1423`)
+- Component instance names referenced as anatomy hints (not guaranteed component-set pages):
   - `次级button`
   - `TabBar 底部标签栏`
-- Other page aliases (`全局组件`, `图标`, `首页`, `资产`, `行情`, `现货`, `跟单`, `登录注册`, `C2C`, `h5`, etc.) appear in older notes but were NOT returned by the current Figma metadata pass. See `skills/btcc-style-generator/references/figma-source.md` for the verified-vs-unverified split.
+- Other page aliases (`全局组件`, `图标`, `首页`, `资产`, `行情`, `现货`, `跟单`, `登录注册`, `C2C`, `h5`, etc.) appear in older notes but were NOT returned by the current Figma metadata pass. See `skills/btcc-style-generator/references/for-figma-inspect/source-anchors.md` and `rules.md` R-SCOPE-1 for the verified-vs-unverified split.
 
 When the Figma plugin is available, inspect the source file before inventing tokens, icons, components, or layout rules. Do not assume an unverified page alias maps to a real Figma page in the current file.
 
 ## What Is Included
 
 ```text
-docs/
-  btcc/
-    btcc-design-system.md
-    btcc-generation-governance.md
-    btcc-prompt-pack.md
-
 skills/
   btcc-style-generator/
     SKILL.md
@@ -37,48 +32,53 @@ skills/
       btcc-tokens.json
       icons/*.svg
     references/
-      components.md
-      contract-screens.md
-      data-format.md
-      figma-source.md
-      golden-examples.md
-      icons.md
-      implementation-patterns.md
-      page-matrix.md
-      prompt-evals.md
-      qa.md
-      tokens.md
+      rules.md                    ← single source of truth
+      for-figma-inspect/
+        source-anchors.md
+        contract-screens.md
+        icons.md
+      for-code-generation/
+        components-trading.md
+        components-account.md
+        components-global.md
+        tokens-colors.md
+        tokens-size-typography.md
+        pages-contract.md
+        pages-other.md
+      for-review-and-qa/
+        qa.md
+        golden-examples.md
+        data-format.md
+      for-prompt-design/
+        prompt-evals.md
+        implementation-patterns.md
     scripts/
       btcc_qa_lint.py
 ```
 
 ## Quick Start
 
-1. Read the high-level design system:
+1. Read the golden rules first:
 
    ```text
-   docs/btcc/btcc-design-system.md
+   skills/btcc-style-generator/references/rules.md
    ```
 
-2. Read the prompt pack:
-
-   ```text
-   docs/btcc/btcc-prompt-pack.md
-   ```
-
-3. Use the Codex skill for actual generation work:
+2. Use the Codex skill entrypoint for routing:
 
    ```text
    skills/btcc-style-generator/SKILL.md
    ```
 
-4. If generating web code, import the token CSS or map the JSON tokens into the target project:
+   The SKILL.md "Task → Files" index maps an invocation class (e.g. "generate a contract page", "change the order button") to the minimum file set to load.
+
+3. If generating web code, import the token CSS or map the JSON tokens into the target project:
 
    ```css
    @import "./skills/btcc-style-generator/assets/btcc-tokens.css";
    ```
 
-5. Before claiming output is ready, run the QA linter:
+4. Before claiming output is ready, run the QA linter:
 
    ```bash
    python skills/btcc-style-generator/scripts/btcc_qa_lint.py <file-or-directory>
@@ -86,17 +86,15 @@ skills/
 
 ## Core BTCC Rules
 
-- Default to dark mode.
-- Treat BTCC as an operational exchange UI, not a marketing landing page.
-- Put market, account, product, or trading state in the first viewport.
-- Use original BTCC semantic tokens instead of arbitrary colors.
-- Use brand blue for neutral primary actions, selected states, AND the `Open Long` direction button.
-- Use red for the `Open Short` direction button and for sell, short, ask, negative, loss, error states.
-- Use green for positive numeric direction (bid rows, positive change, profit text, success toasts) — NOT for the long action button. BTCC `合约pro` reverses the common "long=green" convention on the action button.
-- Keep trading/workspace screens compact, dense, and data-led.
-- Use thin dividers, tabular numbers, aligned numeric columns, and restrained borders.
-- Use tabs for major operational states and segmented controls for mode switches.
-- Prefer the Figma-exported BTCC SVG icons before generic icon libraries.
+The authoritative rules live in `skills/btcc-style-generator/references/rules.md`. Highlights below are pointers, not the source of truth — when in doubt, read the file.
+
+- Direction buttons in `合约pro` are inverted from the western convention: `Open Long` uses brand blue, `Open Short` uses error red. Numeric direction (positive/negative) still follows green/red. (`rules.md` R-COLOR-1)
+- Color is status, not decoration. Reserve red and green for state and numeric semantics. (`rules.md` R-COLOR-2)
+- Operational state in the first viewport. No marketing hero on trading or wallet surfaces. (`rules.md` R-LAYOUT-1)
+- Dark-first, compact spacing, dense rows, tabular numbers, restrained borders. (`rules.md` R-LAYOUT-2)
+- Figma-exported BTCC SVG icons before generic icon libraries; line stroke around 1.5–2 px at 24 px. (`rules.md` R-ICON-1)
+- Use `--btcc-*` semantic tokens. Do not introduce arbitrary hex or `--primary` / `--accent`. (`rules.md` R-NAME-1)
+- Surfaces outside the verified Figma pass MUST carry an "Unverified / 未验证" marker. (`rules.md` R-SCOPE-1)
 
 ## Design Tokens
 
@@ -120,7 +118,7 @@ Key semantic values:
 | Warning | `#E0601F` | `#E0601F` |
 | Check/reward | `#F0B848` | `#F0B848` |
 
-Use `references/tokens.md` for full token names and mappings.
+Full token tables and semantic mappings live in `skills/btcc-style-generator/references/for-code-generation/tokens-colors.md` and `tokens-size-typography.md`.
 
 ## Icons
 
@@ -143,14 +141,7 @@ Available icon assets:
 - `demo-trading.svg`
 - `discover.svg`
 
-Icon selection order:
-
-1. Inspect the original Figma icon/source node.
-2. Use the local SVG asset if the role is covered.
-3. Wrap the SVG in the target project icon component if needed.
-4. Use a fallback icon library only when no BTCC source asset exists.
-
-Use `references/icons.md` for role mapping, sizes, and fallback names.
+Icon selection order is defined in `rules.md` R-ICON-1; role mapping and Figma cues live in `references/for-figma-inspect/icons.md`.
 
 ## Figma Plugin Workflow
 
@@ -168,40 +159,22 @@ Do not rely on memory alone for Figma-specific values when the plugin can inspec
 
 ## Recommended Generation Workflow
 
-1. Identify the page type:
-   - contract trading
-   - market/watchlist
-   - wallet/assets
-   - auth/login/register
-   - copy trading
-   - account/settings
-   - H5/mobile app-like surface
-
-2. Load the smallest relevant references:
-   - `references/page-matrix.md`
-   - `references/components.md`
-   - `references/tokens.md`
-   - `references/icons.md`
-   - `references/data-format.md`
-
-3. Use the gold examples:
-   - `references/golden-examples.md`
-
-4. Generate using BTCC tokens, icon roles, compact spacing, and operational hierarchy.
-
-5. Run QA:
+1. Identify the task class and consult the SKILL.md "Task → Files" index for the minimum file set to read.
+2. Always read `references/rules.md` first.
+3. For contract trading work, load `for-code-generation/pages-contract.md`, `components-trading.md`, `components-global.md`, `tokens-colors.md`, `tokens-size-typography.md`.
+4. For unverified surfaces (home, wallet/assets, auth, copy trading, spot, c2c, h5, etc.), load `for-code-generation/pages-other.md` and carry the Unverified marker.
+5. Generate using BTCC tokens, icon roles, compact spacing, and operational hierarchy.
+6. Run QA:
 
    ```bash
    python skills/btcc-style-generator/scripts/btcc_qa_lint.py <file-or-directory>
    ```
 
-6. Compare against:
-   - `references/qa.md`
-   - `references/prompt-evals.md`
+7. Compare against `for-review-and-qa/qa.md`, `golden-examples.md`, `data-format.md`, and `for-prompt-design/prompt-evals.md`.
 
 ## Prompt Evaluation
 
-Use `skills/btcc-style-generator/references/prompt-evals.md` before changing prompt behavior.
+Use `skills/btcc-style-generator/references/for-prompt-design/prompt-evals.md` before changing prompt behavior.
 
 The eval set covers:
 
@@ -216,10 +189,12 @@ The most important failures to catch are:
 
 - turning an operational screen into a marketing hero page
 - missing order book or order form on trading pages
-- coloring the `Open Long` button green (BTCC source paints it brand blue)
+- coloring the `Open Long` button green
 - using arbitrary colors instead of BTCC tokens
 - losing tabular numeric alignment
 - replacing BTCC utility icons with decorative icons
+
+These map back to `rules.md` R-LAYOUT-1, R-COLOR-1, R-COLOR-2, R-LAYOUT-2, and R-ICON-1.
 
 ## QA Linter
 
@@ -235,7 +210,7 @@ Self-test:
 python skills/btcc-style-generator/scripts/btcc_qa_lint.py --self-test
 ```
 
-The linter checks common generation drift:
+The linter is the runtime enforcer of `rules.md`. It checks common generation drift:
 
 - arbitrary hex colors outside the BTCC allowlist
 - decorative gradients on operational pages
@@ -268,25 +243,27 @@ skills/btcc-style-generator/SKILL.md
 
 | File | Purpose |
 | --- | --- |
-| `docs/btcc/btcc-design-system.md` | Human-readable full design system summary |
-| `docs/btcc/btcc-generation-governance.md` | Governance, review, and generation discipline |
-| `docs/btcc/btcc-prompt-pack.md` | Prompt templates for BTCC-style generation |
-| `skills/btcc-style-generator/SKILL.md` | Codex skill router and usage rules |
-| `references/figma-source.md` | Figma pages, components, source anchors |
-| `references/contract-screens.md` | 合约pro sub-screen index (node IDs by purpose) |
-| `references/tokens.md` | Original token names and mappings |
-| `references/components.md` | Trading forms, buttons, tabs, tables, modals |
-| `references/icons.md` | Icon roles, sizes, Figma cues, local SVGs |
-| `references/page-matrix.md` | Page-by-page structure rules |
-| `references/data-format.md` | Number formats, labels, mock data, semantics |
-| `references/golden-examples.md` | Gold-standard page structures |
-| `references/prompt-evals.md` | Regression prompts and pass/fail checks |
-| `references/implementation-patterns.md` | Packaging, fidelity levels, prompt hygiene |
-| `references/qa.md` | Manual and automated QA checklist |
+| `skills/btcc-style-generator/SKILL.md` | Codex skill router and Task → Files index |
+| `skills/btcc-style-generator/references/rules.md` | Single source of truth for BTCC golden rules |
+| `references/for-figma-inspect/source-anchors.md` | Figma file key, page names, component-set anchors |
+| `references/for-figma-inspect/contract-screens.md` | `合约pro` sub-screen index (node IDs by purpose) |
+| `references/for-figma-inspect/icons.md` | Icon roles, Figma cues, local SVG hints |
+| `references/for-code-generation/components-trading.md` | Trading form, order book, TP/SL sheet, market pair header |
+| `references/for-code-generation/components-account.md` | Orders / positions / assets panel, market table, wallet table |
+| `references/for-code-generation/components-global.md` | Secondary button, bottom tab bar, product navigation |
+| `references/for-code-generation/tokens-colors.md` | Color collections, semantic tokens, gray ramp |
+| `references/for-code-generation/tokens-size-typography.md` | Radius, control heights, spacing, type scale |
+| `references/for-code-generation/pages-contract.md` | Verified `合约pro` page structure |
+| `references/for-code-generation/pages-other.md` | Unverified pages (home, wallet, auth, copy, spot, c2c, h5) with Unverified marker |
+| `references/for-review-and-qa/qa.md` | QA checklist, all rule citations link back to `rules.md` |
+| `references/for-review-and-qa/golden-examples.md` | Gold-standard structures for verified surfaces |
+| `references/for-review-and-qa/data-format.md` | Number formats, labels, mock data, semantics |
+| `references/for-prompt-design/prompt-evals.md` | Regression prompts and pass/fail checks |
+| `references/for-prompt-design/implementation-patterns.md` | Packaging, fidelity levels, prompt hygiene |
 | `assets/btcc-tokens.json` | Token data for tools and transformations |
 | `assets/btcc-tokens.css` | CSS variables for generated web code |
 | `assets/icons/*.svg` | Figma-exported core BTCC icons |
-| `scripts/btcc_qa_lint.py` | Heuristic QA linter |
+| `scripts/btcc_qa_lint.py` | Heuristic QA linter (runtime enforcer of `rules.md`) |
 
 ## Current Status
 
@@ -296,8 +273,7 @@ Completed:
 - Core dark/light tokens extracted.
 - Core icon roles documented.
 - 10 original Figma SVG icons exported.
-- Prompt pack and generation governance written.
-- Codex skill created.
+- Codex skill created and restructured by role (rules.md SSOT + 4 role directories).
 - Golden examples added.
 - Data formatting rules added.
 - Prompt eval set added.
@@ -308,4 +284,4 @@ Known limitations:
 - The `图标` Figma page appeared empty during extraction, so icon assets currently come from `设计规范` and `合约pro`.
 - Some complex components are specified by anatomy and behavior rather than fully exported as Figma component code.
 - The QA linter is heuristic and should not replace visual QA or Figma source inspection.
-
+- Surfaces other than `合约pro` / `合约pro-dark` / `设计规范` remain unverified per `rules.md` R-SCOPE-1.

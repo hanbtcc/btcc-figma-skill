@@ -1,20 +1,18 @@
-# BTCC Icon Registry
+> See `references/rules.md` for global rules.
 
-Use this file when choosing icons for BTCC-style UI, especially when the Figma plugin is available.
+# BTCC Icon Anchor Registry
+
+Icon role names paired with Figma clues — where to find each icon in the BTCC Figma file and what naming hints to look for. Style/color rules are not declared here; see `rules.md` R-ICON-1 (icon source order, stroke style, accessibility) and R-COLOR-2 (color-as-status binding).
 
 ## Source Strategy
 
-1. Search the BTCC Figma file first.
-2. Prefer in-file icon nodes, component instances, or copied vectors.
-3. If implementing in code, prefer the local SVG assets in `assets/icons/`.
-4. If the project already has a strict icon component system, wrap the local SVG path data or map source icons to the nearest project icon component.
-5. Use line-icon fallbacks only when no source asset is available.
+Follow `rules.md` R-ICON-1 for the source-order policy. The list below is the role-to-anchor lookup itself, not a re-statement of that rule.
 
-## Local SVG Assets
+## Local SVG Asset Anchors
 
-These assets were exported from the original Figma `设计规范` page:
+These assets were exported from the original Figma `设计规范` page. Use them as the in-code anchor when the project does not already have an icon component for the role.
 
-| Asset | Original Figma Cue | Use |
+| Asset | Original Figma Cue | Role |
 | --- | --- | --- |
 | `assets/icons/market-stats.svg` | `bar-chart-square-down` | Market stats / analytics shortcut |
 | `assets/icons/kline.svg` | `k线` | Candlestick / K-line chart |
@@ -27,9 +25,11 @@ These assets were exported from the original Figma `设计规范` page:
 | `assets/icons/demo-trading.svg` | `模拟` | Demo trading |
 | `assets/icons/discover.svg` | `line-chart-up-03` | Discover / market trend |
 
-## Sizing
+## Sizing Hints
 
-| Use | Size |
+These are the observed Figma frame/vector sizes per usage context — record only, not a rule. Layout/sizing rules belong in `for-code-generation/tokens-size-typography.md` and `rules.md` R-LAYOUT-2.
+
+| Use | Observed size |
 | --- | --- |
 | Toolbar and product nav icons | 24px |
 | Bottom navigation icons | 20-24px |
@@ -39,9 +39,9 @@ These assets were exported from the original Figma `设计规范` page:
 | Mobile touch container | 40-44px |
 | Desktop icon button container | 32-40px |
 
-## Role Mapping
+## Role Mapping (Figma anchor → role)
 
-| Role | Original Figma Cue | Source Page | Size | Fallback |
+| Role | Original Figma Cue | Source Page | Observed size | Generic-icon fallback name |
 | --- | --- | --- | --- | --- |
 | Market stats | `bar-chart-square-down` | `设计规范` | 24px frame, 16px vector | `BarChart` |
 | K-line / chart | `k线` | `设计规范` | 24px frame | `ChartCandlestick` |
@@ -58,20 +58,12 @@ These assets were exported from the original Figma `设计规范` page:
 | Bottom nav copy | copy tab graphic | `合约pro` | 18-24px | `Copy` |
 | Bottom nav assets | `BTCCtp` / assets cue | `设计规范`, `合约pro` | 20px vector | `Wallet` |
 | Bottom nav trade | trade tab graphic | `合约pro` | 18-24px | `ChartCandlestick` |
-| System status | mobile signal, Wi-Fi, battery | `设计规范` | iOS-like native sizes | Do not use in web content except app frame mockups. |
+| System status | mobile signal, Wi-Fi, battery | `设计规范` | iOS-like native sizes | App-frame mockups only. |
 
-## Style Rules
+For active-state coloring, disabled-state coloring, stroke style, and accessibility on icon-only buttons, see `rules.md` R-ICON-1 and R-COLOR-2 — do not re-declare those here.
 
-- Prefer stroke icons with restrained weight, visually around 1.5-2px at 24px.
-- Keep icon color bound to text/icon tokens.
-- Active nav icons use brand/primary emphasis.
-- Disabled icons use `text | icon/disable`.
-- Do not mix colorful illustrative icons into trading controls.
-- Do not use emoji or filled playful icons.
-- Keep icon-only buttons accessible with labels.
+## Figma Anchor Notes
 
-## Figma Notes
-
-- The `图标` page was empty in the extraction pass; rely on `设计规范` and `合约pro` observed icon nodes.
+- The `图标` page was empty in the extraction pass; rely on `设计规范` and `合约pro` observed icon nodes. (The empty-page status is also recorded in `source-anchors.md`.)
 - Some icons are nested vectors with generic names like `Vector`, `Subtract`, or `Rectangle`. Use the parent frame name as the semantic source cue.
 - When reading via Figma tools, collect parent names and sizes, not only leaf vector names.
