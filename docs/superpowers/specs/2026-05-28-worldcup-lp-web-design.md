@@ -2,12 +2,15 @@
 name: BTCC 世界杯活动 LP（Web 桌面版）
 date: 2026-05-28
 platform: web
-status: design-approved
+status: superseded
+superseded-by: 2026-05-28-worldcup-lp-web-v2-design.md
 unverified-marker: true   # 按 rules.md R-SCOPE-1，营销 LP 不在已验证 Figma 范围
 target-figma:
   team: Metaverse HK (organization::1544657499809167084)
   file: 待 use_figma 创建
 ---
+
+> **本文档已被 v2 取代**。v2 改用「累进解锁奖池」机制并对齐公司 jjj交易赛 LP 视觉范式（全幅 hero 图、40px 居中段标题、独立 My Status 块、规则数据表、邀请人排行榜）。本文档保留作历史记录。新工作请读 `2026-05-28-worldcup-lp-web-v2-design.md`。
 
 # BTCC 世界杯活动 LP（Web 桌面版）— 设计文档
 
