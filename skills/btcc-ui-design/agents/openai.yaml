@@ -1,0 +1,7 @@
+interface:
+  display_name: "BTCC UI Design"
+  short_description: "BTCC company UI rules for web, H5, LP, and app surfaces"
+  default_prompt: "Use $btcc-ui-design to route a BTCC UI task to the correct shared, web, or app rules."
+
+policy:
+  allow_implicit_invocation: true
