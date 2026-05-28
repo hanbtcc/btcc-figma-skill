@@ -47,7 +47,7 @@ Generated BTCC pages MUST surface product / market / account / trading state in 
 - Numeric columns MUST use `font-variant-numeric: tabular-nums`.
 - Right-align numeric columns; left-align pair / asset / status / action labels.
 - Card surfaces only for repeated modules or genuinely contained tools — not for every section.
-- Mobile gutters MUST be 16px; touch targets MUST be 40-44px on primary controls.
+- Platform-specific extensions of this rule (mobile gutters / touch targets / web breakpoints / hover) live in `platform-app/rules-app.md` and `platform-web/rules-web.md`.
 
 ## R-ICON-1: Icon Source Order
 
@@ -82,6 +82,8 @@ Use BTCC's stable trading terms. Avoid verbose educational text in trading panel
 ## R-SCOPE-1: Verified vs Unverified Content
 
 The skill MUST visibly distinguish content backed by verified Figma source from content offered as BTCC-style convention.
+
+Verified anchors are tracked per platform: see `platform-app/for-figma-inspect/source-anchors.md` for the BTCC APP file and `platform-web/for-figma-inspect/source-anchors.md` for the BTCC WEB file. The anchor lists below remain as historical record for the APP file specifically.
 
 Verified anchors (re-verify if older than ~30 days):
 

@@ -13,11 +13,16 @@ Read `references/rules.md` first; it is the single source of truth for BTCC gold
 
 ## Required Workflow
 
-1. Identify the task class (see Task → Files index below).
-2. Load `references/rules.md` plus the task-specific files listed in the index — nothing more.
-3. If a BTCC Figma URL or plugin is available, inspect the original Figma source before inventing tokens, icons, or components.
-4. Generate or review against the role-targeted references.
-5. Run `references/for-review-and-qa/qa.md` before claiming completion.
+1. Identify platform first (single platform per invocation):
+   - Signals for **web**: "web", "桌面", "1024", "1440", "1556", "1920", "hover", "focus ring", "鼠标"
+   - Signals for **app**: "app", "h5", "合约pro" (the trading screen, mobile), "TabBar", "移动端", "触控", "44px target"
+   - If signals conflict or are missing, STOP and ask han before loading either platform — do not default to APP, do not load both.
+   - Same session may switch platforms only when han explicitly requests; otherwise stay on the chosen platform.
+2. Identify the task class (see Task → Files index below).
+3. Load `references/rules.md` plus the active platform's `rules-app.md` or `rules-web.md`, plus the task-specific files listed in the index — nothing more.
+4. If a BTCC Figma URL or plugin is available, inspect the original Figma source before inventing tokens, icons, or components.
+5. Generate or review against the role-targeted references.
+6. Run `references/for-review-and-qa/qa.md` before claiming completion.
 
 ## Path Migrated (legacy → new)
 
@@ -25,26 +30,30 @@ Old flat-layout paths are gone. Map any cached prompt or memory through this tab
 
 | Legacy file (deprecated) | New location |
 | --- | --- |
-| flat `components` doc | `references/for-code-generation/components-{trading,account,global}.md` |
-| flat `tokens` doc | `references/for-code-generation/tokens-{colors,size-typography}.md` |
-| flat `page-matrix` doc | `references/for-code-generation/pages-{contract,other}.md` |
-| flat `figma-source` doc | `references/for-figma-inspect/source-anchors.md` |
-| top-level `docs/btcc/` long-form trio | deleted; content absorbed into `references/` role directories |
+| `references/for-figma-inspect/*.md` (APP) | `references/platform-app/for-figma-inspect/*.md` |
+| `references/for-code-generation/*.md` (APP) | `references/platform-app/for-code-generation/*.md` |
+| (none — Web is new) | `references/platform-web/rules-web.md`, `references/platform-web/for-figma-inspect/source-anchors.md` |
+| flat-role legacy paths from prior restructure | absorbed into `platform-app/` |
+| top-level `docs/btcc/` long-form trio | already deleted in prior restructure |
 
 ## Task → Files
 
-`references/rules.md` is a default mandatory read for every task and is not repeated per row.
+`references/rules.md` is a default mandatory read for every task and is not repeated per row. The active platform's `rules-app.md` or `rules-web.md` is also loaded per Required Workflow Step 3.
 
-| Task | Role | Files |
-| --- | --- | --- |
-| Generate a `合约pro` contract page | for-code-generation | `pages-contract.md`, `components-trading.md`, `components-global.md`, `tokens-colors.md`, `tokens-size-typography.md` |
-| Change the order button / trading form | for-code-generation | `components-trading.md`, `tokens-colors.md` |
-| Add a leverage picker | for-code-generation | `components-trading.md`, `tokens-size-typography.md` |
-| Review AI / model output | for-review-and-qa | `qa.md`, `golden-examples.md`, `data-format.md` |
-| Write or edit a prompt | for-prompt-design | `prompt-evals.md`, `implementation-patterns.md` |
-| Inspect a Figma node / anchor | for-figma-inspect | `source-anchors.md`, `contract-screens.md`, `icons.md` |
-| Modify a token value | for-code-generation | `tokens-colors.md` (color) or `tokens-size-typography.md` (size / type) |
-| Add a new page (unverified surface) | for-code-generation + for-figma-inspect | `pages-other.md` (carry the Unverified marker per `rules.md` R-SCOPE-1), `source-anchors.md` |
+`Platform` values: `app` = mobile (新BTCC APP, fileKey `GW9kMfpf0Nib5DG4TjoWBp`); `web` = desktop (新BTCC WEB, fileKey `VrE25c6IAuIieWngebNnwx`); `both` = platform-neutral.
+
+| Task | Platform | Role | Files |
+| --- | --- | --- | --- |
+| Generate a `合约pro` contract page (mobile) | app | for-code-generation | `platform-app/rules-app.md`, `platform-app/for-code-generation/pages-contract.md`, `components-trading.md`, `components-global.md`, `tokens-colors.md`, `tokens-size-typography.md` |
+| Change the order button / trading form (mobile) | app | for-code-generation | `platform-app/rules-app.md`, `platform-app/for-code-generation/components-trading.md`, `tokens-colors.md` |
+| Add a leverage picker (mobile) | app | for-code-generation | `platform-app/rules-app.md`, `platform-app/for-code-generation/components-trading.md`, `tokens-size-typography.md` |
+| Review AI / model output | both | for-review-and-qa | `for-review-and-qa/qa.md`, `golden-examples.md`, `data-format.md` (cite the active platform's `rules-*.md`) |
+| Write or edit a prompt | both | for-prompt-design | `for-prompt-design/prompt-evals.md`, `implementation-patterns.md` |
+| Inspect a Figma node / anchor (APP) | app | for-figma-inspect | `platform-app/for-figma-inspect/source-anchors.md`, `contract-screens.md`, `icons.md` |
+| Inspect a Figma node / anchor (Web) | web | for-figma-inspect | `platform-web/for-figma-inspect/source-anchors.md` |
+| Modify a token value | app | for-code-generation | `platform-app/for-code-generation/tokens-colors.md` (color) or `tokens-size-typography.md` (size/type). For Web, tokens are not yet extracted — flag as Unverified per `platform-web/rules-web.md` R-ASSETS-WEB. |
+| Add a new page (unverified surface, APP) | app | for-code-generation + for-figma-inspect | `platform-app/for-code-generation/pages-other.md` (carry the Unverified marker per `rules.md` R-SCOPE-1), `platform-app/for-figma-inspect/source-anchors.md` |
+| Generate a Web page | web | (limited) | `platform-web/rules-web.md`, `platform-web/for-figma-inspect/source-anchors.md`. **Web `for-code-generation/` is not yet populated**; either confirm with han before generating Web code, or carry the Unverified marker per `rules.md` R-SCOPE-1 and `platform-web/rules-web.md` R-ASSETS-WEB. |
 
 ## Reusable Assets
 
@@ -55,20 +64,32 @@ Old flat-layout paths are gone. Map any cached prompt or memory through this tab
 | `assets/icons/*.svg` | Figma-exported core BTCC utility icons. |
 | `scripts/btcc_qa_lint.py` | Heuristic web-output QA checker (runtime enforcer of `rules.md`). |
 
+Note: Tokens are currently APP-derived; Web token parity is unverified — see `platform-web/rules-web.md` R-ASSETS-WEB.
+
 ## Figma Plugin Workflow
 
 When the Figma plugin is available:
 
-1. Load `references/for-figma-inspect/source-anchors.md`.
+### APP (新BTCC APP, fileKey `GW9kMfpf0Nib5DG4TjoWBp`)
+
+1. Load `references/platform-app/for-figma-inspect/source-anchors.md`.
 2. Inspect `设计规范`, `全局组件`, and the target page with Figma tools.
 3. Read local variables before defining or mapping tokens.
-4. Search source screens for icon roles before choosing fallbacks (`references/for-figma-inspect/icons.md`).
+4. Search source screens for icon roles before choosing fallbacks (`references/platform-app/for-figma-inspect/icons.md`).
 5. Prefer existing Figma component sets:
    - `次级button`
    - `TabBar 底部标签栏`
 6. If creating or updating Figma nodes, keep generated nodes linked to tokens/components where practical.
 
+### Web (新BTCC WEB, fileKey `VrE25c6IAuIieWngebNnwx`)
+
+1. Load `references/platform-web/for-figma-inspect/source-anchors.md`.
+2. Inspect the top-level canvases `0:1 设计规范` and `3089:7459 其他-马甲包官网/桌面图标`.
+3. Note: pages-level anchors are not yet documented for Web. The desktop trading layout lives as sub-frames inside `0:1` rather than a separate `合约pro` canvas — consult the verified sub-frame list in `source-anchors.md` before referencing any Web page.
+
 ## Original Figma Anchors
+
+### APP
 
 - File: `新BTCC APP`
 - File key: `GW9kMfpf0Nib5DG4TjoWBp`
@@ -77,7 +98,14 @@ When the Figma plugin is available:
 - Main trading reference: `合约pro`
 - Component sets: `次级button`, `TabBar 底部标签栏`
 
-For the full anchor list and verified vs unverified scope, see `references/for-figma-inspect/source-anchors.md` and `rules.md` R-SCOPE-1.
+### Web
+
+- File: `新BTCC WEB`
+- File key: `VrE25c6IAuIieWngebNnwx`
+- Top-level canvases: `0:1 设计规范`, `3089:7459 其他-马甲包官网/桌面图标`
+- Note: Web has no separate `合约pro` / `合约pro-dark` canvas; the desktop trading layout lives as sub-frames inside `0:1`. See `references/platform-web/for-figma-inspect/source-anchors.md` for the verified sub-frame list.
+
+For the full anchor list and verified vs unverified scope, see the platform-specific `for-figma-inspect/source-anchors.md` and `rules.md` R-SCOPE-1.
 
 ## Common Mistakes
 
@@ -91,12 +119,13 @@ These are pointers; the authoritative anti-pattern list lives in `rules.md` R-SS
 - Decorative or colorful icons in trading controls (`rules.md` R-ICON-1).
 - Generating an unverified surface without the Unverified marker (`rules.md` R-SCOPE-1).
 - Using `--primary` / `--accent` / arbitrary hex inside BTCC surfaces (`rules.md` R-NAME-1, R-COLOR-2).
+- Generating Web code without confirming token parity (`platform-web/rules-web.md` R-ASSETS-WEB).
 
 ## Completion Gate
 
 Before finishing:
 
-1. Read `references/for-review-and-qa/qa.md`.
+1. Read `references/for-review-and-qa/qa.md` (and re-check both `references/rules.md` and the active platform's `rules-app.md` or `rules-web.md` for any rule citations).
 2. For generated web files, run `python skills/btcc-style-generator/scripts/btcc_qa_lint.py <file-or-directory>` when the files are available locally.
 3. Check for hard failures.
 4. State whether Figma source was inspected.

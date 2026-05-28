@@ -1,10 +1,12 @@
 # BTCC Style Generator
 
-This repository packages the BTCC app design language extracted from the Figma file `新BTCC APP` into reusable Markdown specs, prompt references, assets, and a Codex skill.
+This repository packages the BTCC design language extracted from Figma into reusable Markdown specs, prompt references, assets, and a Codex skill. It currently covers two product lines: the **BTCC APP** (mobile, file `新BTCC APP`, key `GW9kMfpf0Nib5DG4TjoWBp`) and the **BTCC Web** (desktop, file `新BTCC WEB`, key `VrE25c6IAuIieWngebNnwx`). The skill routes by platform; see `skills/btcc-style-generator/SKILL.md` for the platform identification step.
 
-It is intended for generating BTCC-style crypto exchange web pages, especially trading, contract, market, wallet, auth, account, copy trading, and app-like operational screens.
+It is intended for generating BTCC-style crypto exchange surfaces — trading, contract, market, wallet, auth, account, copy trading — across mobile and desktop.
 
 ## Source
+
+### BTCC APP (mobile)
 
 - Figma file: `新BTCC APP`
 - Figma file key: `GW9kMfpf0Nib5DG4TjoWBp`
@@ -15,7 +17,16 @@ It is intended for generating BTCC-style crypto exchange web pages, especially t
 - Component instance names referenced as anatomy hints (not guaranteed component-set pages):
   - `次级button`
   - `TabBar 底部标签栏`
-- Other page aliases (`全局组件`, `图标`, `首页`, `资产`, `行情`, `现货`, `跟单`, `登录注册`, `C2C`, `h5`, etc.) appear in older notes but were NOT returned by the current Figma metadata pass. See `skills/btcc-style-generator/references/for-figma-inspect/source-anchors.md` and `rules.md` R-SCOPE-1 for the verified-vs-unverified split.
+- Other page aliases (`全局组件`, `图标`, `首页`, `资产`, `行情`, `现货`, `跟单`, `登录注册`, `C2C`, `h5`, etc.) appear in older notes but were NOT returned by the current Figma metadata pass. See `skills/btcc-style-generator/references/platform-app/for-figma-inspect/source-anchors.md` and `rules.md` R-SCOPE-1 for the verified-vs-unverified split.
+
+### BTCC Web (desktop)
+
+- Figma file: `新BTCC WEB`
+- Figma file key: `VrE25c6IAuIieWngebNnwx`
+- Top-level canvases:
+  - `0:1 设计规范` — verified. Contains buttons, inputs, dialogs, plus desktop `合约pro` order frame `651:14846`, order book `647:13104`, top nav `647:12465`, right options `663:2867`, and other sub-frames.
+  - `3089:7459 其他-马甲包官网/桌面图标` — unverified.
+- Note: the Web file has no separate `合约pro` / `合约pro-dark` top-level canvas. Desktop trading lives as sub-frames inside `0:1`. See `skills/btcc-style-generator/references/platform-web/for-figma-inspect/source-anchors.md` for the verified sub-frame list.
 
 When the Figma plugin is available, inspect the source file before inventing tokens, icons, components, or layout rules. Do not assume an unverified page alias maps to a real Figma page in the current file.
 
@@ -32,26 +43,32 @@ skills/
       btcc-tokens.json
       icons/*.svg
     references/
-      rules.md                    ← single source of truth
-      for-figma-inspect/
-        source-anchors.md
-        contract-screens.md
-        icons.md
-      for-code-generation/
-        components-trading.md
-        components-account.md
-        components-global.md
-        tokens-colors.md
-        tokens-size-typography.md
-        pages-contract.md
-        pages-other.md
-      for-review-and-qa/
+      rules.md                    ← single source of truth (platform-neutral)
+      for-review-and-qa/          ← platform-neutral
         qa.md
         golden-examples.md
         data-format.md
-      for-prompt-design/
+      for-prompt-design/          ← platform-neutral
         prompt-evals.md
         implementation-patterns.md
+      platform-app/
+        rules-app.md
+        for-figma-inspect/
+          source-anchors.md
+          contract-screens.md
+          icons.md
+        for-code-generation/
+          components-trading.md
+          components-account.md
+          components-global.md
+          tokens-colors.md
+          tokens-size-typography.md
+          pages-contract.md
+          pages-other.md
+      platform-web/
+        rules-web.md
+        for-figma-inspect/
+          source-anchors.md
     scripts/
       btcc_qa_lint.py
 ```
@@ -118,7 +135,7 @@ Key semantic values:
 | Warning | `#E0601F` | `#E0601F` |
 | Check/reward | `#F0B848` | `#F0B848` |
 
-Full token tables and semantic mappings live in `skills/btcc-style-generator/references/for-code-generation/tokens-colors.md` and `tokens-size-typography.md`.
+Full token tables and semantic mappings live in `skills/btcc-style-generator/references/platform-app/for-code-generation/tokens-colors.md` and `tokens-size-typography.md`.
 
 ## Icons
 
@@ -141,7 +158,7 @@ Available icon assets:
 - `demo-trading.svg`
 - `discover.svg`
 
-Icon selection order is defined in `rules.md` R-ICON-1; role mapping and Figma cues live in `references/for-figma-inspect/icons.md`.
+Icon selection order is defined in `rules.md` R-ICON-1; role mapping and Figma cues live in `references/platform-app/for-figma-inspect/icons.md`.
 
 ## Figma Plugin Workflow
 
@@ -161,16 +178,17 @@ Do not rely on memory alone for Figma-specific values when the plugin can inspec
 
 1. Identify the task class and consult the SKILL.md "Task → Files" index for the minimum file set to read.
 2. Always read `references/rules.md` first.
-3. For contract trading work, load `for-code-generation/pages-contract.md`, `components-trading.md`, `components-global.md`, `tokens-colors.md`, `tokens-size-typography.md`.
-4. For unverified surfaces (home, wallet/assets, auth, copy trading, spot, c2c, h5, etc.), load `for-code-generation/pages-other.md` and carry the Unverified marker.
-5. Generate using BTCC tokens, icon roles, compact spacing, and operational hierarchy.
-6. Run QA:
+3. For APP contract trading work, load `platform-app/rules-app.md`, `platform-app/for-code-generation/{pages-contract,components-trading,components-global,tokens-colors,tokens-size-typography}.md`.
+4. For unverified APP surfaces (home, wallet/assets, auth, copy trading, spot, c2c, h5, etc.), load `platform-app/for-code-generation/pages-other.md` and carry the Unverified marker.
+5. For Web work, load `platform-web/rules-web.md` and `platform-web/for-figma-inspect/source-anchors.md`. Web `for-code-generation/` is not yet populated — confirm with han before generating Web code, or carry the Unverified marker per `rules.md` R-SCOPE-1.
+6. Generate using BTCC tokens, icon roles, compact spacing, and operational hierarchy.
+7. Run QA:
 
    ```bash
    python skills/btcc-style-generator/scripts/btcc_qa_lint.py <file-or-directory>
    ```
 
-7. Compare against `for-review-and-qa/qa.md`, `golden-examples.md`, `data-format.md`, and `for-prompt-design/prompt-evals.md`.
+8. Compare against `for-review-and-qa/qa.md`, `golden-examples.md`, `data-format.md`, and `for-prompt-design/prompt-evals.md`.
 
 ## Prompt Evaluation
 
@@ -245,16 +263,19 @@ skills/btcc-style-generator/SKILL.md
 | --- | --- |
 | `skills/btcc-style-generator/SKILL.md` | Codex skill router and Task → Files index |
 | `skills/btcc-style-generator/references/rules.md` | Single source of truth for BTCC golden rules |
-| `references/for-figma-inspect/source-anchors.md` | Figma file key, page names, component-set anchors |
-| `references/for-figma-inspect/contract-screens.md` | `合约pro` sub-screen index (node IDs by purpose) |
-| `references/for-figma-inspect/icons.md` | Icon roles, Figma cues, local SVG hints |
-| `references/for-code-generation/components-trading.md` | Trading form, order book, TP/SL sheet, market pair header |
-| `references/for-code-generation/components-account.md` | Orders / positions / assets panel, market table, wallet table |
-| `references/for-code-generation/components-global.md` | Secondary button, bottom tab bar, product navigation |
-| `references/for-code-generation/tokens-colors.md` | Color collections, semantic tokens, gray ramp |
-| `references/for-code-generation/tokens-size-typography.md` | Radius, control heights, spacing, type scale |
-| `references/for-code-generation/pages-contract.md` | Verified `合约pro` page structure |
-| `references/for-code-generation/pages-other.md` | Unverified pages (home, wallet, auth, copy, spot, c2c, h5) with Unverified marker |
+| `references/platform-app/rules-app.md` | APP-specific rules (mobile gutters, touch targets); cites `rules.md` |
+| `references/platform-web/rules-web.md` | Web-specific rules (breakpoints 1024/1440/1556/1920, hover/focus); cites `rules.md` |
+| `references/platform-app/for-figma-inspect/source-anchors.md` | Figma file key, page names, component-set anchors |
+| `references/platform-app/for-figma-inspect/contract-screens.md` | `合约pro` sub-screen index (node IDs by purpose) |
+| `references/platform-app/for-figma-inspect/icons.md` | Icon roles, Figma cues, local SVG hints |
+| `references/platform-web/for-figma-inspect/source-anchors.md` | Web file key, canvas list, verified sub-frame node IDs |
+| `references/platform-app/for-code-generation/components-trading.md` | Trading form, order book, TP/SL sheet, market pair header |
+| `references/platform-app/for-code-generation/components-account.md` | Orders / positions / assets panel, market table, wallet table |
+| `references/platform-app/for-code-generation/components-global.md` | Secondary button, bottom tab bar, product navigation |
+| `references/platform-app/for-code-generation/tokens-colors.md` | Color collections, semantic tokens, gray ramp |
+| `references/platform-app/for-code-generation/tokens-size-typography.md` | Radius, control heights, spacing, type scale |
+| `references/platform-app/for-code-generation/pages-contract.md` | Verified `合约pro` page structure |
+| `references/platform-app/for-code-generation/pages-other.md` | Unverified pages (home, wallet, auth, copy, spot, c2c, h5) with Unverified marker |
 | `references/for-review-and-qa/qa.md` | QA checklist, all rule citations link back to `rules.md` |
 | `references/for-review-and-qa/golden-examples.md` | Gold-standard structures for verified surfaces |
 | `references/for-review-and-qa/data-format.md` | Number formats, labels, mock data, semantics |
@@ -278,6 +299,8 @@ Completed:
 - Data formatting rules added.
 - Prompt eval set added.
 - QA linter added and self-tested.
+- Skill restructured by platform: APP-specific files moved into platform-app/, Web file 新BTCC WEB anchors documented under platform-web/.
+- R-LAYOUT-2 split into platform-neutral core (rules.md) plus R-LAYOUT-2-APP (mobile gutters / touch targets) and R-LAYOUT-2-WEB (breakpoints / hover / focus).
 
 Known limitations:
 
@@ -285,3 +308,4 @@ Known limitations:
 - Some complex components are specified by anatomy and behavior rather than fully exported as Figma component code.
 - The QA linter is heuristic and should not replace visual QA or Figma source inspection.
 - Surfaces other than `合约pro` / `合约pro-dark` / `设计规范` remain unverified per `rules.md` R-SCOPE-1.
+- Web platform's for-code-generation/ subtree is not populated; Web token parity with APP-derived assets/btcc-tokens.* is unverified (see platform-web/rules-web.md R-ASSETS-WEB).

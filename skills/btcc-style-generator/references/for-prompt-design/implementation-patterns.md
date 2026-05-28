@@ -2,7 +2,7 @@
 
 > See `references/rules.md` for global rules.
 
-Use this when turning the BTCC design spec into reusable code, Figma plugin workflows, prompts, or repository instructions. Process and packaging guidance only — token values, component anatomy, and color/layout/naming rules are owned elsewhere (see `rules.md` for global rules and `for-code-generation/` for tokens and components).
+Use this when turning the BTCC design spec into reusable code, Figma plugin workflows, prompts, or repository instructions. Process and packaging guidance only — token values, component anatomy, and color/layout/naming rules are owned elsewhere (see `rules.md` for global rules; for APP tokens and components see `platform-app/for-code-generation/`, for Web see `platform-web/`).
 
 ## What Mature Design Systems Usually Fix
 
@@ -12,7 +12,7 @@ These patterns keep AI/code generation from drifting after the first version.
 | --- | --- |
 | Multi-format tokens | Keep `assets/btcc-tokens.json` for tools and `assets/btcc-tokens.css` for web output. |
 | Themeable icons | Prefer local SVGs for exact Figma shape; convert color to `currentColor` only when the target component system needs theme inheritance. |
-| Figma as source of truth | Re-inspect verified anchors in `for-figma-inspect/source-anchors.md` before inventing new tokens/components. |
+| Figma as source of truth | Re-inspect verified anchors in `platform-app/for-figma-inspect/source-anchors.md` (APP) or `platform-web/for-figma-inspect/source-anchors.md` (Web) before inventing new tokens/components. |
 | Agent-readable docs | Keep `SKILL.md` as a router and put heavy details in role directories under `references/`. |
 | Regression prompts | Run `references/for-prompt-design/prompt-evals.md` before changing the prompt pack. |
 | Static checks | Run `scripts/btcc_qa_lint.py` on generated code to catch common drift. |
@@ -31,10 +31,10 @@ btcc-style-generator/
     icons/*.svg
   references/
     rules.md
-    for-figma-inspect/
-    for-code-generation/
     for-review-and-qa/
     for-prompt-design/
+    platform-app/
+    platform-web/
   scripts/
     btcc_qa_lint.py
 ```
@@ -65,7 +65,7 @@ When changing prompts:
 - Keep hard constraints short and testable; let `rules.md` carry the canonical rule statements and reference them by R- ID rather than restating.
 - Put page-specific requirements in examples/evals (`prompt-evals.md`), not only prose.
 - Include negative examples for common drift listed in `rules.md` R-SSOT-2 (marketing hero, arbitrary colors, oversized cards, missing order book, wrong long/short button colors).
-- Keep Figma inspection an explicit step when the plugin is available; point at `for-figma-inspect/` rather than reciting anchors inline.
+- Keep Figma inspection an explicit step when the plugin is available; point at `platform-app/for-figma-inspect/` or `platform-web/for-figma-inspect/` rather than reciting anchors inline.
 - Prefer "use the BTCC token/icon registry" over pasting long token lists into every prompt.
 
 ## External References
